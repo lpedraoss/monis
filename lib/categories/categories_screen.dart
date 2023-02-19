@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monis/model/book-category.dart';
+import 'package:monis/model/book_category.dart';
 import 'package:monis/utils.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -49,7 +49,7 @@ class TileCategory extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
-          color: hexToColor(_category.ColorBg),
+          color: hexToColor(_category.colorBg),
         ),
         alignment: AlignmentDirectional.center,
         child: Text(

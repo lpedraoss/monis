@@ -1,23 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BookshelfState {
-  List<int> bookIds;
-  BookshelfState(this.bookIds);
-}
+part 'book_shelf_state.dart';
+part 'book_shelf_event.dart';
 
-abstract class BookshelfEvent {
-  const BookshelfEvent();
-}
 
-class AddBookToBookshelf extends BookshelfEvent {
-  final int bookId;
-  const AddBookToBookshelf(this.bookId);
-}
-
-class RemoveBookFromBookshelf extends BookshelfEvent {
-  final int bookId;
-  const RemoveBookFromBookshelf(this.bookId);
-}
 
 class BookshelfBloc extends Bloc<BookshelfEvent, BookshelfState> {
   BookshelfBloc(BookshelfState initialState) : super(initialState) {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/bookshelf/bookshelf_screen.dart';
 import 'package:monis/categories/categories_screen.dart';
-import 'package:monis/home/homeScreen.dart';
-import 'package:monis/state.dart';
+import 'package:monis/home/home_screen.dart';
+
 
 void main() {
   runApp(const MonisApp());

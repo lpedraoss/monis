@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/model/book.dart';
-import 'package:monis/state.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   const BookDetailsScreen(this._book, {super.key});
@@ -38,26 +38,26 @@ class BookActionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookshelfBloc, BookshelfState>(
-        builder: (context, BookshefState) {
+        builder: (context, bookshefState) {
       var action = () => _addToBookshelf(context, bookId);
       var label = "Agregar a mi estante";
       var color = Colors.green;
 
-      if (BookshefState.bookIds.contains(bookId)) {
+      if (bookshefState.bookIds.contains(bookId)) {
         action = () => _removeFromBookshelf(context, bookId);
         label = "Quitar de mi estante";
         color = Colors.amber;
       }
       return ElevatedButton(
         onPressed: action,
+        style: ElevatedButton.styleFrom(backgroundColor: color,),
         child: Text(label),
-        style: ElevatedButton.styleFrom(primary: color),
       );
     });
   }
 
   void _addToBookshelf(BuildContext context, int bookId) {
-    var bookshelfBloc = context.read<BookshelfBloc>();
+    final bookshelfBloc = context.read<BookshelfBloc>();
     bookshelfBloc.add(AddBookToBookshelf(bookId));
   }
 
