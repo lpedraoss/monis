@@ -50,7 +50,7 @@ class BookActionsWidget extends StatelessWidget {
       }
       return ElevatedButton(
         onPressed: action,
-        style: ElevatedButton.styleFrom(primary: color),
+        style: ElevatedButton.styleFrom(backgroundColor: color,),
         child: Text(label),
       );
     });

@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: listLength,
           itemBuilder: (context, index) {
             if (index == 0) {
-              return HeaderWidget();
+              return const HeaderWidget();
             }
 
             if (index == 1) {
@@ -134,6 +134,8 @@ class ListItemBook extends StatelessWidget {
 }
 
 class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(

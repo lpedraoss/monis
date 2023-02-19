@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 class Book {
   final int id;
   final String tittle;

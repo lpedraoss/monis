@@ -47,7 +47,7 @@ class BookCoverItem extends StatefulWidget {
     super.key,
   });
   //final Book _book;
-  final _bookId;
+  final int _bookId;
 
   @override
   State<BookCoverItem> createState() => _BookCoverItemState();
@@ -57,7 +57,6 @@ class _BookCoverItemState extends State<BookCoverItem> {
   Book? _book;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getBook(widget._bookId);
   }
