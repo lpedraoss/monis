@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
@@ -5,9 +6,12 @@ import 'package:monis/bookshelf/bookshelf_screen.dart';
 import 'package:monis/categories/categories_screen.dart';
 import 'package:monis/home/home_screen.dart';
 
+void main() async {
 
-void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MonisApp());
+
 }
 
 class MonisApp extends StatelessWidget {

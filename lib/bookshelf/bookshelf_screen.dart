@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
+import 'package:monis/book_details/book_details_screen.dart';
 import 'package:monis/model/book.dart';
 import 'package:monis/service/book_service.dart';
-
 
 class BookshelfScreen extends StatelessWidget {
   const BookshelfScreen({super.key});
@@ -47,7 +47,7 @@ class BookCoverItem extends StatefulWidget {
     super.key,
   });
   //final Book _book;
-  final int _bookId;
+  final String _bookId;
 
   @override
   State<BookCoverItem> createState() => _BookCoverItemState();
@@ -61,7 +61,7 @@ class _BookCoverItemState extends State<BookCoverItem> {
     _getBook(widget._bookId);
   }
 
-  void _getBook(int bookId) async {
+  void _getBook(String bookId) async {
     var book = await BookService().getBook(bookId);
     setState(() {
       _book = book;
@@ -74,10 +74,21 @@ class _BookCoverItemState extends State<BookCoverItem> {
       return const Center(child: CircularProgressIndicator());
     }
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        _openBooksDetails(_book!, context);
+      },
       child: Ink.image(
         image: AssetImage(_book!.coverUrl),
         fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  _openBooksDetails(Book book, BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BookDetailsScreen(book),
       ),
     );
   }
