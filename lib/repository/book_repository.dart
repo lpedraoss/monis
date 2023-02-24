@@ -1,28 +1,29 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:monis/model/book.dart';
 
-class BookRepository {
-  final List<Book> _books = const [
-    Book(
-        1,
-        'Cuando no queden más estrellas que contar',
-        'María Martínez',
-        '''supone una historia narrada con mucha sensibilidad que no podrás parar de leer. Amor, superación y perdón son los ingredientes esenciales de esta emotiva historia.\n
-        Maya ha dedicado su vida al ballet. Un día, un inesperado accidente termina con su carrera y el futuro que tenía por delante. De repente, siente que el mundo se ha venido abajo, además uno de sus grandes apoyos, su abuela, le reprocha lo sucedido. Entonces, deberá hacer frente a la frustración y a un gran secreto escondido en una caja de música.
-''',
-        'assets/images/book1.jpg'),
-    Book(2, 'tittle2', 'author2', 'description2', 'assets/images/book2.jpeg'),
-    Book(3, 'tittle3', 'author3', 'description3', 'assets/images/book2.jpeg'),
-    Book(4, 'tittle4', 'author4', 'description4', 'assets/images/book2.jpeg'),
-    Book(5, 'tittle5', 'author5', 'description5', 'assets/images/book2.jpeg'),
-  ];
-
+/*class BookRepository {
+  final booksRef = FirebaseFirestore.instance.collection('books').withConverter(
+        fromFirestore: (snapshot, _) =>
+            Book.fromJson(snapshot.id, snapshot.data()!),
+        toFirestore: (book, _) => book.toJson(),
+      );
   Future<List<Book>> getBooks() async {
-    return _books;
+    var result = await booksRef.limit(2).get().then((value) => value);
+    List<Book> books = [];
+    for (var doc in result.docs) {
+      books.add(doc.data());
+    }
+    return Future.value(books);
   }
 
-  Future<Book> getBook({required int bookId}) async {
-    return _books.firstWhere(
-      (bookElement) => bookElement.id == bookId,
-    );
+  Future<Book> getBook({required String bookId}) async {
+    var result = await booksRef.doc(bookId).get().then((value) => value);
+    if (result.exists) {
+      return Future.value(result.data());
+    }
+    throw const HttpException("Book not found");
   }
 }
+*/

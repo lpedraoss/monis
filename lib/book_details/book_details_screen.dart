@@ -33,7 +33,7 @@ class BookDetailsScreen extends StatelessWidget {
 
 class BookActionsWidget extends StatelessWidget {
   const BookActionsWidget(this.bookId, {super.key});
-  final int bookId;
+  final String bookId;
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +50,20 @@ class BookActionsWidget extends StatelessWidget {
       }
       return ElevatedButton(
         onPressed: action,
-        style: ElevatedButton.styleFrom(backgroundColor: color,),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+        ),
         child: Text(label),
       );
     });
   }
 
-  void _addToBookshelf(BuildContext context, int bookId) {
+  void _addToBookshelf(BuildContext context, String bookId) {
     final bookshelfBloc = context.read<BookshelfBloc>();
     bookshelfBloc.add(AddBookToBookshelf(bookId));
   }
 
-  void _removeFromBookshelf(BuildContext context, int bookId) {
+  void _removeFromBookshelf(BuildContext context, String bookId) {
     var bookshelfBloc = context.read<BookshelfBloc>();
     bookshelfBloc.add(RemoveBookFromBookshelf(bookId));
   }

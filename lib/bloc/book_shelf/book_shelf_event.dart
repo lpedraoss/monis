@@ -5,11 +5,11 @@ abstract class BookshelfEvent {
 }
 
 class AddBookToBookshelf extends BookshelfEvent {
-  final int bookId;
+  final String bookId;
   const AddBookToBookshelf(this.bookId);
 }
 
 class RemoveBookFromBookshelf extends BookshelfEvent {
-  final int bookId;
+  final String bookId;
   const RemoveBookFromBookshelf(this.bookId);
 }
