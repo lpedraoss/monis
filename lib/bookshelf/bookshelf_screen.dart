@@ -12,32 +12,48 @@ class BookshelfScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BookshelfBloc, BookshelfState>(
         // ignore: non_constant_identifier_names
-        builder: (context, BookshefState) {
-      if (BookshefState.bookIds.isEmpty) {
-        return Center(
-          child: Text(
-            'Este estante está vacío.',
-            style: Theme.of(context).textTheme.headline4,
-            textAlign: TextAlign.center,
-          ),
-        );
-      }
+        builder: (context, bookshefState) {
+      var emptyListWidget = Center(
+        child: Text(
+          'Este estante está vacío.',
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.center,
+        ),
+      );
+      var mainWidget = bookshefState.bookIds.isEmpty
+          ? emptyListWidget
+          : MyBooksGrid(bookshefState.bookIds);
 
-      return Container(
-        margin: const EdgeInsets.all(16),
-        child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.7,
-            ),
-            itemCount: BookshefState.bookIds.length,
-            itemBuilder: (context, index) {
-              return BookCoverItem(BookshefState.bookIds[index]);
-            }),
+      return Column(
+        children: [
+          Expanded(child: mainWidget),
+          ElevatedButton(
+              onPressed: () {}, child: const Text('Agregar nuevo libro')),
+        ],
       );
     });
+  }
+}
+
+class MyBooksGrid extends StatelessWidget {
+  const MyBooksGrid(this.bookIds, {super.key});
+  final List<String> bookIds;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.7,
+          ),
+          itemCount: bookIds.length,
+          itemBuilder: (context, index) {
+            return BookCoverItem(bookIds[index]);
+          }),
+    );
   }
 }
 
