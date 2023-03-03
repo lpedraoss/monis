@@ -14,13 +14,12 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Book> _books = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getLastBooks();
   }
 
   void _getLastBooks() async {
-    var lastBooks = await BookService().getLastBook();
+    var lastBooks = await BookService().getBooks(booksQuantity: 3);
     setState(() {
       _books = lastBooks;
     });
@@ -44,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Ultimos libros',
                 style: Theme.of(context)
                     .textTheme
-                    .headline6!
+                    .titleLarge!
                     .copyWith(fontSize: 25),
               );
             }
