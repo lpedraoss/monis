@@ -4,7 +4,7 @@ class Book {
   final String author;
   final String description;
   final String coverUrl;
-
+//modelo book
   const Book(
       this.id, this.tittle, this.author, this.description, this.coverUrl);
   Book.fromJson(String id, Map<String, dynamic> json)
