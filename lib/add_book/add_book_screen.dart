@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:monis/repository/book_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/service/book_service.dart';
 part 'add_book_state.dart';
 
@@ -9,7 +10,7 @@ class AddBookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Agregar nuevo libro')),
+      appBar: AppBar(title: const Text('Agregar Nuevo Libro')),
       body: const AddBookForm(),
     );
   }

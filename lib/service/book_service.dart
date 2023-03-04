@@ -11,5 +11,5 @@ class BookService {
       _repository.getBook(bookId: bookId);
 
   Future<String> saveBook(String title, String author, String summary) async =>
-      _repository.save(title, author, summary);
+      _repository.saveBook(title, author, summary);
 }
