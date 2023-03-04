@@ -40,4 +40,15 @@ class BookRepository {
     }
     throw const HttpException("Book not found");
   }
+
+  ///Save [newBook] at firebase
+  Future<String> save(String title, String author, String summary) async {
+    var reference = FirebaseFirestore.instance.collection('books');
+    var newBook = await reference.add({
+      'name': title,
+      'author': author,
+      'summary': summary,
+    });
+    return Future.value(newBook.id);
+  }
 }
