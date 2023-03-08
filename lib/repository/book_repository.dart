@@ -8,9 +8,10 @@ class BookRepository {
   ///conect the DB to flutter app with reference [booksRef]
   final _booksRef =
       FirebaseFirestore.instance.collection('books').withConverter(
-            fromFirestore: (snapshot, _) =>
-                Book.fromJson(snapshot.id, snapshot.data()!),
-            toFirestore: (book, _) => book.toJson(),
+            fromFirestore: (snapshot, _) => Book.fromMap(
+              {...snapshot.data()!, "id": snapshot.id},
+            ),
+            toFirestore: (book, _) => book.toMap(),
           );
 
   ///find the last [booksQuantity] books from [_booksRef]
@@ -42,7 +43,7 @@ class BookRepository {
   }
 
   ///Save [newBook] at firebase
-  Future<String> save(String title, String author, String summary) async {
+  Future<String> saveBook(String title, String author, String summary) async {
     var reference = FirebaseFirestore.instance.collection('books');
     var newBook = await reference.add({
       'name': title,

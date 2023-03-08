@@ -29,6 +29,13 @@
             {
               "client_id": "145747871310-k7cpflmpa1h5uklukfogpi3mg7civh5s.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "145747871310-q67pk7knsja062ses5g58jg4urq78um6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.monis"
+              }
             }
           ]
         }

@@ -23,7 +23,7 @@ class BookDetailsScreen extends StatelessWidget {
               author: _book.author,
               description: _book.description,
             ),
-            BookActionsWidget(_book.id),
+            BookActionsWidget(_book),
           ],
         ),
       ),
@@ -32,19 +32,19 @@ class BookDetailsScreen extends StatelessWidget {
 }
 
 class BookActionsWidget extends StatelessWidget {
-  const BookActionsWidget(this.bookId, {super.key});
-  final String bookId;
+  const BookActionsWidget(this.book, {super.key});
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookshelfBloc, BookshelfState>(
         builder: (context, bookshefState) {
-      var action = () => _addToBookshelf(context, bookId);
+      var action = () => _addToBookshelf(context, book);
       var label = "Agregar a mi estante";
       var color = Colors.green;
 
-      if (bookshefState.bookIds.contains(bookId)) {
-        action = () => _removeFromBookshelf(context, bookId);
+      if (bookshefState.bookIds.contains(book.id)) {
+        action = () => _removeFromBookshelf(context, book.id ?? '');
         label = "Quitar de mi estante";
         color = Colors.amber;
       }
@@ -58,9 +58,9 @@ class BookActionsWidget extends StatelessWidget {
     });
   }
 
-  void _addToBookshelf(BuildContext context, String bookId) {
+  void _addToBookshelf(BuildContext context, Book book) {
     final bookshelfBloc = context.read<BookshelfBloc>();
-    bookshelfBloc.add(AddBookToBookshelf(bookId));
+    bookshelfBloc.add(AddBookToBookshelf(book));
   }
 
   void _removeFromBookshelf(BuildContext context, String bookId) {

@@ -7,11 +7,9 @@ import 'package:monis/categories/categories_screen.dart';
 import 'package:monis/home/home_screen.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MonisApp());
-
 }
 
 class MonisApp extends StatelessWidget {
@@ -21,7 +19,9 @@ class MonisApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => BookshelfBloc(BookshelfState([])),
+      create: (_) => BookshelfBloc(
+        BookshelfState(),
+      ),
       child: MaterialApp(
         title: 'Monis',
         theme: ThemeData(
