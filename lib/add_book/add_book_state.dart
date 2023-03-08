@@ -13,7 +13,6 @@ class AddBookFormState extends State<AddBookForm> {
       listener: (context, state) {
         if (state.status == Status.success) {
           Navigator.of(context).pop;
-          Navigator.of(context).pop;
         }
       },
       builder: (context, state) {
