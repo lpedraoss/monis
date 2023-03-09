@@ -5,7 +5,8 @@ class AddBookFormState extends State<AddBookForm> {
   final titleEditingController = TextEditingController(),
       authEditingController = TextEditingController(),
       summEditingController = TextEditingController(),
-      _formKey = GlobalKey<FormState>();
+      _formKey = GlobalKey<FormState>(),
+      _cameraLogo = 'assets/images/cameraLogo.png';
 
   @override
   Widget build(BuildContext context) {
@@ -21,51 +22,65 @@ class AddBookFormState extends State<AddBookForm> {
             child: CircularProgressIndicator(),
           );
         }
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Titulo',
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Titulo',
+                    ),
+                    controller: titleEditingController,
+                    validator: (value) => (value == null || value.isEmpty)
+                        ? "por favor ingrese el titulo"
+                        : null,
                   ),
-                  controller: titleEditingController,
-                  validator: (value) => (value == null || value.isEmpty)
-                      ? "por favor ingrese el titulo"
-                      : null,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Autor',
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Autor',
+                    ),
+                    controller: authEditingController,
+                    validator: (value) => (value == null || value.isEmpty)
+                        ? "por favor ingrese el Autor"
+                        : null,
                   ),
-                  controller: authEditingController,
-                  validator: (value) => (value == null || value.isEmpty)
-                      ? "por favor ingrese el Autor"
-                      : null,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Resumen',
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Resumen',
+                    ),
+                    controller: summEditingController,
+                    validator: (value) => (value == null || value.isEmpty)
+                        ? "por favor ingrese el resumen del libro"
+                        : (null),
                   ),
-                  controller: summEditingController,
-                  validator: (value) => (value == null || value.isEmpty)
-                      ? "por favor ingrese el resumen del libro"
-                      : (null),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _saveBook(context);
-                    }
-                  },
-                  child: const Text('Guardar'),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 20),
+                    child: GestureDetector(
+                      onTap: () {
+                        _navigateTakePictureScreen(context);
+                      },
+                      child: SizedBox(
+                        width: 150,
+                        child: Image.asset(_cameraLogo),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _saveBook(context);
+                      }
+                    },
+                    child: const Text('Guardar'),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -86,5 +101,12 @@ class AddBookFormState extends State<AddBookForm> {
 
     var bookShelfBloc = context.read<BookshelfBloc>();
     bookShelfBloc.add(AddBookToBookshelf(book));
+  }
+
+  void _navigateTakePictureScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const TakePictureScreen()),
+    );
   }
 }

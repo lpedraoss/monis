@@ -89,17 +89,17 @@ class BookInfoWidget extends StatelessWidget {
             tittle,
             style: Theme.of(context)
                 .textTheme
-                .headline5!
+                .headlineSmall!
                 .copyWith(fontWeight: FontWeight.w500),
           ),
           Text(
             author,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 5),
           Text(
             description,
-            style: Theme.of(context).textTheme.headline5!.copyWith(
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   fontSize: 16,
                 ),
           ),
