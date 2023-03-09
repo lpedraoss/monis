@@ -54,7 +54,7 @@ class TileCategory extends StatelessWidget {
         alignment: AlignmentDirectional.center,
         child: Text(
           _category.name,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
           textAlign: TextAlign.center,
         ),
       ),

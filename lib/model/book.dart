@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Book {
   final String? id;
@@ -8,11 +6,11 @@ class Book {
   final String description;
   final String coverUrl;
   Book({
-     this.id,
+    this.id,
     required this.tittle,
-     this.author = '',
-     this.description = '',
-     this.coverUrl='',
+    this.author = '',
+    this.description = '',
+    this.coverUrl = '',
   });
 //modelo book
 
@@ -38,7 +36,7 @@ class Book {
           : 'assets/images/book2.jpeg', /*si no existe portada se coloca una predeterminada*/
     );
   }
-   Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'tittle': tittle,
@@ -47,6 +45,7 @@ class Book {
       'coverUrl': coverUrl,
     };
   }
+
   Book copyWith({
     String? id,
     String? tittle,

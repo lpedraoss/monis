@@ -91,7 +91,7 @@ class ListItemBook extends StatelessWidget {
                         'Titulo: ${_book.tittle}',
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(fontSize: 18),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -100,7 +100,7 @@ class ListItemBook extends StatelessWidget {
                         'Autor: ${_book.author}',
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(fontSize: 10),
                       ),
                       const SizedBox(height: 10),
@@ -108,7 +108,7 @@ class ListItemBook extends StatelessWidget {
                         'Descripcion: ${_book.description}',
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle2!
+                            .titleSmall!
                             .copyWith(fontSize: 10),
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
