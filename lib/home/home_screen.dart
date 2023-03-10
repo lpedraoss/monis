@@ -30,6 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
     var showProgress = _books.isEmpty;
     var listLength = showProgress ? 3 : _books.length + 2;
     return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/anime1.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
       margin: const EdgeInsets.all(16),
       child: ListView.builder(
           itemCount: listLength,
@@ -68,6 +74,7 @@ class ListItemBook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white.withOpacity(0.5),
       child: SizedBox(
         height: 170,
         child: InkWell(
@@ -140,7 +147,7 @@ class HeaderWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Image.asset(
-        'assets/images/header3.jpg',
+        'assets/images/anime.jpg',
         //height: 300,
       ),
     );
