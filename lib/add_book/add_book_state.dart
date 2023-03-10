@@ -7,6 +7,7 @@ class AddBookFormState extends State<AddBookForm> {
       summEditingController = TextEditingController(),
       _formKey = GlobalKey<FormState>(),
       _cameraLogo = 'assets/images/cameraLogo.png';
+  String? _imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,7 @@ class AddBookFormState extends State<AddBookForm> {
                       },
                       child: SizedBox(
                         width: 150,
-                        child: Image.asset(_cameraLogo),
+                        child: _getImageWidget(context),
                       ),
                     ),
                   ),
@@ -91,22 +92,35 @@ class AddBookFormState extends State<AddBookForm> {
   void _saveBook(BuildContext context) {
     var title = titleEditingController.text,
         author = authEditingController.text,
-        summary = summEditingController.text;
+        summary = summEditingController.text,
+        coverUrl = _imagePath == null ? _cameraLogo : _cameraLogo;
 
     final book = Book(
-      tittle: title,
-      author: author,
-      description: summary,
-    );
+        tittle: title,
+        author: author,
+        description: summary,
+        coverUrl: coverUrl);
 
     var bookShelfBloc = context.read<BookshelfBloc>();
     bookShelfBloc.add(AddBookToBookshelf(book));
+    Navigator.pop(context);
   }
 
-  void _navigateTakePictureScreen(BuildContext context) {
-    Navigator.push(
+  void _navigateTakePictureScreen(BuildContext context) async {
+    var result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const TakePictureScreen()),
     );
+    setState(() {
+      _imagePath = result;
+    });
+  }
+
+  Widget _getImageWidget(BuildContext context) {
+    if (_imagePath == null) {
+      return Image.asset(_cameraLogo);
+    } else {
+      return Image.file(File(_imagePath!));
+    }
   }
 }

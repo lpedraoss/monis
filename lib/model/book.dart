@@ -33,15 +33,15 @@ class Book {
       description: map['summary'] as String,
       coverUrl: map.containsKey('coverUrl')
           ? map['coverUrl'] as String
-          : 'assets/images/book2.jpeg', /*si no existe portada se coloca una predeterminada*/
+          : 'assets/images/book1.jpg', /*si no existe portada se coloca una predeterminada*/
     );
   }
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'tittle': tittle,
+      'name': tittle,
       'author': author,
-      'description': description,
+      'summary': description,
       'coverUrl': coverUrl,
     };
   }
