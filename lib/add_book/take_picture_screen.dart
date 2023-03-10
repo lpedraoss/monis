@@ -1,55 +1,79 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:monis/add_book/display_picture_screen.dart';
 
 class TakePictureScreen extends StatefulWidget {
-  const TakePictureScreen({super.key});
+  const TakePictureScreen({Key? key}) : super(key: key);
 
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
 }
 
 class TakePictureScreenState extends State<TakePictureScreen> {
-  final _titleappBar = 'tomar foto del libro';
-  late CameraController _controllerCamera;
-  Future<void> _initializeCamera() async {
-    var cameraList = await availableCameras();
-    _controllerCamera = CameraController(
-      cameraList.first,
+  late CameraController _cameraController;
+
+  Future<void> initialize() async {
+    var camerasList = await availableCameras();
+    _cameraController = CameraController(
+      camerasList.first,
       ResolutionPreset.high,
     );
-    return _controllerCamera.initialize();
+
+    return _cameraController.initialize();
   }
 
   @override
   void dispose() {
-    _controllerCamera.dispose();
-
+    _cameraController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(_titleappBar)),
-        body: FutureBuilder<void>(
-          future: _initializeCamera(),
-          builder: (context, snapshot) => (snapshot.hasError)
-              ? Center(
-                  child: Text('ocurrió un error. ERROR: ${snapshot.error}'),
-                )
-              : snapshot.connectionState == ConnectionState.done
-                  ? Container(
-                      color: Colors.black,
-                      child: Center(child: CameraPreview(_controllerCamera)))
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+      appBar: AppBar(title: const Text('Tomar foto de libro')),
+      body: FutureBuilder<void>(
+        future: initialize(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                  child: Text("Ocurrió un error. Error: ${snapshot.error}")),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Container(
+                color: Colors.black,
+                child: Center(child: CameraPreview(_cameraController)));
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _takePicture(context);
+        },
+        child: const Icon(Icons.camera_alt),
+      ),
+    );
+  }
+
+  void _takePicture(BuildContext context) async {
+    var image = await _cameraController.takePicture();
+    var imagePath = image.path;
+    // ignore: use_build_context_synchronously
+    var result = await Navigator.of(context).push<String>(
+      MaterialPageRoute(
+        builder: (context) => DisplayPictureScreen(
+          imagePath: imagePath,
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            //TODO: take photo
-          },
-          child: const Icon(Icons.camera_alt),
-        ));
+      ),
+    );
+    if (result != null && result.isNotEmpty) {
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context, result);
+    }
   }
 }
