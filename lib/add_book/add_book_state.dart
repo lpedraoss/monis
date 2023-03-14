@@ -2,11 +2,13 @@ part of 'add_book_screen.dart';
 
 class AddBookFormState extends State<AddBookForm> {
   ///access the values ​​of [textFormfield] via controller
-  final titleEditingController = TextEditingController(),
-      authEditingController = TextEditingController(),
-      summEditingController = TextEditingController(),
-      _formKey = GlobalKey<FormState>(),
-      _cameraLogo = 'assets/images/cameraLogo.png';
+  final _titleEditingController = TextEditingController(),
+      _authEditingController = TextEditingController(),
+      _summEditingController = TextEditingController();
+
+  ///key to detect the [Form]
+  final _formKey = GlobalKey<FormState>();
+  final _cameraLogo = 'assets/images/cameraLogo.png';
   String? _imagePath;
 
   @override
@@ -35,7 +37,7 @@ class AddBookFormState extends State<AddBookForm> {
                       border: UnderlineInputBorder(),
                       labelText: 'Titulo',
                     ),
-                    controller: titleEditingController,
+                    controller: _titleEditingController,
                     validator: (value) => (value == null || value.isEmpty)
                         ? "por favor ingrese el titulo"
                         : null,
@@ -45,7 +47,7 @@ class AddBookFormState extends State<AddBookForm> {
                       border: UnderlineInputBorder(),
                       labelText: 'Autor',
                     ),
-                    controller: authEditingController,
+                    controller: _authEditingController,
                     validator: (value) => (value == null || value.isEmpty)
                         ? "por favor ingrese el Autor"
                         : null,
@@ -55,7 +57,7 @@ class AddBookFormState extends State<AddBookForm> {
                       border: UnderlineInputBorder(),
                       labelText: 'Resumen',
                     ),
-                    controller: summEditingController,
+                    controller: _summEditingController,
                     validator: (value) => (value == null || value.isEmpty)
                         ? "por favor ingrese el resumen del libro"
                         : (null),
@@ -90,9 +92,9 @@ class AddBookFormState extends State<AddBookForm> {
   }
 
   void _saveBook(BuildContext context) {
-    var title = titleEditingController.text,
-        author = authEditingController.text,
-        summary = summEditingController.text,
+    var title = _titleEditingController.text,
+        author = _authEditingController.text,
+        summary = _summEditingController.text,
         coverUrl = _imagePath == null ? _cameraLogo : _cameraLogo;
 
     final book = Book(
@@ -116,11 +118,7 @@ class AddBookFormState extends State<AddBookForm> {
     });
   }
 
-  Widget _getImageWidget(BuildContext context) {
-    if (_imagePath == null) {
-      return Image.asset(_cameraLogo);
-    } else {
-      return Image.file(File(_imagePath!));
-    }
-  }
+  Widget _getImageWidget(BuildContext context) => (_imagePath == null)
+      ? Image.asset(_cameraLogo)
+      : Image.file(File(_imagePath!));
 }
