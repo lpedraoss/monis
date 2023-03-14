@@ -1,16 +1,16 @@
 part of 'add_book_screen.dart';
 
+///access the values ​​of [textFormfield] via controller
+final _titleEditingController = TextEditingController(),
+    _authEditingController = TextEditingController(),
+    _summEditingController = TextEditingController();
+
+///key to detect the [Form]
+final _formKey = GlobalKey<FormState>();
+final _cameraLogo = 'assets/images/cameraLogo.png';
+String? _imagePath;
+
 class AddBookFormState extends State<AddBookForm> {
-  ///access the values ​​of [textFormfield] via controller
-  final _titleEditingController = TextEditingController(),
-      _authEditingController = TextEditingController(),
-      _summEditingController = TextEditingController();
-
-  ///key to detect the [Form]
-  final _formKey = GlobalKey<FormState>();
-  final _cameraLogo = 'assets/images/cameraLogo.png';
-  String? _imagePath;
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BookshelfBloc, BookshelfState>(
@@ -91,23 +91,6 @@ class AddBookFormState extends State<AddBookForm> {
     );
   }
 
-  void _saveBook(BuildContext context) {
-    var title = _titleEditingController.text,
-        author = _authEditingController.text,
-        summary = _summEditingController.text,
-        coverUrl = _imagePath == null ? _cameraLogo : _cameraLogo;
-
-    final book = Book(
-        tittle: title,
-        author: author,
-        description: summary,
-        coverUrl: coverUrl);
-
-    var bookShelfBloc = context.read<BookshelfBloc>();
-    bookShelfBloc.add(AddBookToBookshelf(book));
-    Navigator.pop(context);
-  }
-
   void _navigateTakePictureScreen(BuildContext context) async {
     var result = await Navigator.push(
       context,
@@ -117,8 +100,4 @@ class AddBookFormState extends State<AddBookForm> {
       _imagePath = result;
     });
   }
-
-  Widget _getImageWidget(BuildContext context) => (_imagePath == null)
-      ? Image.asset(_cameraLogo)
-      : Image.file(File(_imagePath!));
 }

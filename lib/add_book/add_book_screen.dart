@@ -9,6 +9,7 @@ import 'package:monis/model/book.dart';
 import 'package:monis/utils/status.dart';
 
 part 'add_book_state.dart';
+part 'add_book_methods.dart';
 
 class AddBookScreen extends StatelessWidget {
   const AddBookScreen({super.key});
