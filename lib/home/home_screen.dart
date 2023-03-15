@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:monis/book_details/book_details_screen.dart';
 import 'package:monis/model/book.dart';
 import 'package:monis/service/book_service.dart';
+import 'package:monis/utils/widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -88,7 +89,19 @@ class ListItemBook extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Image.asset(_book.coverUrl),
+                  child: //coverUrl(_book.coverUrl),
+                      Container(
+                    margin: const EdgeInsets.only(top: 2, bottom: 2),
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 20)
+                    ]),
+                    alignment: Alignment.center,
+                    width: 120,
+                    child: coverUrl(_book.coverUrl),
+                  ),
                 ),
                 Flexible(
                   child: Column(
@@ -136,20 +149,5 @@ class ListItemBook extends StatelessWidget {
     //To do, Navegar a la pantalla detalle de libro
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => BookDetailsScreen(book)));
-  }
-}
-
-class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.asset(
-        'assets/images/anime.jpg',
-        //height: 300,
-      ),
-    );
   }
 }
