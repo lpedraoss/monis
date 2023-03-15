@@ -21,22 +21,14 @@ class _BookCoverItemState extends State<BookCoverItem> {
       return const Center(child: CircularProgressIndicator());
     }
     return InkWell(
-        onTap: () {
-          _openBooksDetails(_book!, context);
-        },
-        child: //coverUrl(_book!.coverUrl),
-            Container(
-          margin: const EdgeInsets.only(top: 20, bottom: 20),
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 20)
-          ]),
-          alignment: Alignment.center,
-          width: 230,
-          child: coverUrl(_book!.coverUrl),
-        ));
+      onTap: () {
+        _openBooksDetails(_book!, context);
+      },
+      child: Ink.image(
+        image: AssetImage(_book!.coverUrl),
+        fit: BoxFit.cover,
+      ),
+    );
   }
 
   _openBooksDetails(Book book, BuildContext context) {

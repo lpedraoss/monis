@@ -1,18 +1,16 @@
 part of 'add_book_screen.dart';
 
+///access the values ​​of [textFormfield] via controller
+final _titleEditingController = TextEditingController(),
+    _authEditingController = TextEditingController(),
+    _summEditingController = TextEditingController();
+
+///key to detect the [Form]
+final _formKey = GlobalKey<FormState>();
+final _cameraLogo = 'assets/images/cameraLogo.png';
+String? _imagePath;
+
 class AddBookFormState extends State<AddBookForm> {
-  ///access the values ​​of [textFormfield] via controller
-  final _titleEditingController = TextEditingController(),
-      _authEditingController = TextEditingController(),
-      _summEditingController = TextEditingController();
-
-  ///key to detect the [Form]
-  final _formKey = GlobalKey<FormState>();
-  final _cameraLogo = 'assets/images/cameraLogo.png';
-
-  ///update [_imagePath] of null to String defined
-  String? _imagePath;
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BookshelfBloc, BookshelfState>(
@@ -96,41 +94,10 @@ class AddBookFormState extends State<AddBookForm> {
   void _navigateTakePictureScreen(BuildContext context) async {
     var result = await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const TakePictureScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const TakePictureScreen()),
     );
-
     setState(() {
       _imagePath = result;
     });
   }
-
-  void _saveBook(BuildContext context) async {
-    var title = _titleEditingController.text,
-        author = _authEditingController.text,
-        summary = _summEditingController.text;
-
-    // ignore: await_only_futures
-    var book = Book(
-      tittle: title,
-      author: author,
-      description: summary,
-    );
-    var newBookId = await BookService().saveBook(book);
-    if (_imagePath != null) {
-      String imageUrl =
-          await BookService().uploadBookCover(_imagePath!, newBookId);
-      await BookService().updateCoverBook(newBookId, imageUrl);
-    }
-    // ignore: use_build_context_synchronously
-    var bookShelfBloc = context.read<BookshelfBloc>();
-    bookShelfBloc.add(AddBookToBookshelf(newBookId));
-    // ignore: use_build_context_synchronously
-    Navigator.pop(context);
-  }
-
-  Widget _getImageWidget(BuildContext context) => (_imagePath == null)
-      ? Image.asset(_cameraLogo)
-      : Image.file(File(_imagePath!));
 }

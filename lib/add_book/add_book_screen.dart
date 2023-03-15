@@ -8,9 +8,8 @@ import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/model/book.dart';
 import 'package:monis/utils/status.dart';
 
-import '../service/book_service.dart';
-
 part 'add_book_state.dart';
+part 'add_book_methods.dart';
 
 class AddBookScreen extends StatelessWidget {
   const AddBookScreen({super.key});

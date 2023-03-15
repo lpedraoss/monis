@@ -12,11 +12,10 @@ class BookshelfBloc extends Bloc<BookshelfEvent, BookshelfState> {
       emit(
         state.copyWith(status: Status.inProgress),
       );
-
-      // var newBookId = await BookService().saveBook(event.book);
+      var newBookId = await BookService().saveBook(event.book);
 
       final list = List.of(state.bookIds);
-      list.add(event.book);
+      list.add(newBookId);
       emit(
         state.copyWith(
           bookIds: list,
@@ -24,19 +23,19 @@ class BookshelfBloc extends Bloc<BookshelfEvent, BookshelfState> {
         ),
       );
     });
-    on<RemoveBookFromBookshelf>((event, emit) async {
-      emit(
-        state.copyWith(status: Status.inProgress),
-      );
-      final list = List.of(state.bookIds);
-      list.remove(event.bookId);
+    // on<RemoveBookFromBookshelf>((event, emit) async {
+    //   emit(
+    //     state.copyWith(status: Status.inProgress),
+    //   );
+    //   final list = List.of(state.bookIds);
+    //   list.remove(event.bookId);
 
-      emit(
-        state.copyWith(
-          bookIds: list,
-          status: Status.success,
-        ),
-      );
-    });
+    //   emit(
+    //     state.copyWith(
+    //       bookIds: list,
+    //       status: Status.success,
+    //     ),
+    //   );
+    // });
   }
 }
