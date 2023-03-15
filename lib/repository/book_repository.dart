@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:monis/model/book.dart';
 
 ///Show [books] from firebase
@@ -51,5 +53,28 @@ class BookRepository {
       'summary': summary,
     });
     return Future.value(newBook.id);
+  }
+
+  ///save [image] on firebase storage
+  Future<String> uploadBookCover(String imagePath, String newBookId) async {
+    try {
+      var newRef = 'books/${imagePath.substring(37, 59)}.png';
+      File image = File(imagePath);
+      var task = await FirebaseStorage.instance.ref(newRef).putFile(image);
+      debugPrint('Upload Finalizado, path: ${task.ref}');
+      return await FirebaseStorage.instance.ref(newRef).getDownloadURL();
+    } on FirebaseException catch (e) {
+      debugPrint(e.message);
+      rethrow;
+    }
+  }
+
+  ///load the image of [bookId] using the [reference]
+  Future<void> updateCoverBook(String newBookId, String imageUrl) async {
+    String bookId = newBookId;
+    var reference = FirebaseFirestore.instance.collection('books').doc(bookId);
+    return reference.update({
+      'coverUrl': imageUrl,
+    });
   }
 }

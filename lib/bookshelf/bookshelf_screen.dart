@@ -5,6 +5,7 @@ import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/book_details/book_details_screen.dart';
 import 'package:monis/model/book.dart';
 import 'package:monis/service/book_service.dart';
+import 'package:monis/utils/widget.dart';
 part 'bookshelf_screen_state.dart';
 
 class BookshelfScreen extends StatelessWidget {

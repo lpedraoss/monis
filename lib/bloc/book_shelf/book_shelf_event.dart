@@ -5,7 +5,7 @@ abstract class BookshelfEvent {
 }
 
 class AddBookToBookshelf extends BookshelfEvent {
-  final Book book;
+  final String book;
   const AddBookToBookshelf(this.book);
 }
 
