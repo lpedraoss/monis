@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             if (index == 1) {
               return Text(
-                'Ultimos libros',
+                'Ultimos libros de la biblioteca',
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
