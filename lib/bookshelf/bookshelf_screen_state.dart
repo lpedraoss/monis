@@ -27,12 +27,14 @@ class _BookCoverItemState extends State<BookCoverItem> {
         child: //coverUrl(_book!.coverUrl),
             Container(
           margin: const EdgeInsets.only(top: 20, bottom: 20),
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 20)
-          ]),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 20),
+            ],
+          ),
           alignment: Alignment.center,
           width: 230,
           child: coverUrl(_book!.coverUrl),
