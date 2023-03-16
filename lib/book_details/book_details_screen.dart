@@ -116,17 +116,19 @@ class BookCoverWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20, bottom: 20),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 20)
-      ]),
-      alignment: Alignment.center,
-      width: 230,
-      child: coverUrl(imageUrl),
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.only(top: 20, bottom: 20),
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 20)
+        ]),
+        alignment: Alignment.center,
+        width: 230,
+        child: coverUrl(imageUrl),
+      ),
     );
   }
 }

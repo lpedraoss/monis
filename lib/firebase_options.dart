@@ -11,9 +11,8 @@ import 'package:flutter/foundation.dart'
 /// import 'firebase_options.dart';
 /// // ...
 /// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
+///   options: DefaultFirebaseOptions.currentPlatform,);
+
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -63,7 +62,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '145747871310',
     projectId: 'monis-app-733d9',
     storageBucket: 'monis-app-733d9.appspot.com',
-    iosClientId: '145747871310-q67pk7knsja062ses5g58jg4urq78um6.apps.googleusercontent.com',
+    iosClientId:
+        '145747871310-q67pk7knsja062ses5g58jg4urq78um6.apps.googleusercontent.com',
     iosBundleId: 'com.example.monis',
   );
 }
