@@ -1,6 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:monis/model/book.dart';
-import 'package:monis/service/book_service.dart';
 import 'package:monis/utils/status.dart';
 
 part 'book_shelf_state.dart';

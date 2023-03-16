@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _getLastBooks() async {
-    var lastBooks = await BookService().getBooks(booksQuantity: 6);
+    var lastBooks = await BookService().getBooks(booksQuantity: 60);
     setState(() {
       _books = lastBooks;
     });
@@ -89,8 +89,7 @@ class ListItemBook extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: //coverUrl(_book.coverUrl),
-                      Container(
+                  child: Container(
                     margin: const EdgeInsets.only(top: 2, bottom: 2),
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
@@ -146,7 +145,6 @@ class ListItemBook extends StatelessWidget {
   }
 
   void _openBookDetails(BuildContext context, Book book) {
-    //To do, Navegar a la pantalla detalle de libro
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => BookDetailsScreen(book)));
   }
