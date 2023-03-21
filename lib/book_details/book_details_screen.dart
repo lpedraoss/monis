@@ -39,24 +39,25 @@ class BookActionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookshelfBloc, BookshelfState>(
-        builder: (context, bookshefState) {
-      var action = () => _addToBookshelf(context, book.id!);
-      var label = "Agregar a mi estante";
-      var color = Colors.green;
+      builder: (context, bookshefState) {
+        var action = () => _addToBookshelf(context, book.id!);
+        var label = "Agregar a mi estante";
+        var color = Colors.green;
 
-      if (bookshefState.bookIds.contains(book.id)) {
-        action = () => _removeFromBookshelf(context, book.id ?? '');
-        label = "Quitar de mi estante";
-        color = Colors.amber;
-      }
-      return ElevatedButton(
-        onPressed: action,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-        ),
-        child: Text(label),
-      );
-    });
+        if (bookshefState.bookIds.contains(book.id)) {
+          action = () => _removeFromBookshelf(context, book.id ?? '');
+          label = "Quitar de mi estante";
+          color = Colors.amber;
+        }
+        return ElevatedButton(
+          onPressed: action,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: color,
+          ),
+          child: Text(label),
+        );
+      },
+    );
   }
 
   void _addToBookshelf(BuildContext context, String book) {

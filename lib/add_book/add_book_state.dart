@@ -125,11 +125,11 @@ class AddBookFormState extends State<AddBookForm> {
       author: author,
       description: summary,
     );
-    var newBookId = await BookService().saveBook(book);
+    final service = BookService();
+    var newBookId = await service.saveBook(book);
     if (_imagePath != null) {
-      String imageUrl =
-          await BookService().uploadBookCover(_imagePath!, newBookId);
-      await BookService().updateCoverBook(newBookId, imageUrl);
+      final imageUrl = await service.uploadBookCover(_imagePath!, newBookId);
+      await service.updateCoverBook(newBookId, imageUrl);
     }
     // ignore: use_build_context_synchronously
     var bookShelfBloc = context.read<BookshelfBloc>();

@@ -1,11 +1,28 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:monis/service/bookshelf_service.dart';
 import 'package:monis/utils/status.dart';
 
 part 'book_shelf_state.dart';
 part 'book_shelf_event.dart';
 
 class BookshelfBloc extends Bloc<BookshelfEvent, BookshelfState> {
-  BookshelfBloc(BookshelfState initialState) : super(initialState) {
+  final BookShelfService service;
+  BookshelfBloc({required this.service}) : super(BookshelfState()) {
+    on<StartShelfEvent>(
+      (event, emit) async {
+        emit(
+          state.copyWith(status: Status.inProgress),
+        );
+        final list = await service.getBooks();
+
+        emit(
+          state.copyWith(
+            bookIds: list,
+            status: Status.success,
+          ),
+        );
+      },
+    );
     on<AddBookToBookshelf>((event, emit) async {
       emit(
         state.copyWith(status: Status.inProgress),
@@ -13,8 +30,8 @@ class BookshelfBloc extends Bloc<BookshelfEvent, BookshelfState> {
 
       // var newBookId = await BookService().saveBook(event.book);
 
-      final list = List.of(state.bookIds);
-      list.add(event.book);
+      await service.addToShelf(event.book);
+      final list = await service.getBooks();
       emit(
         state.copyWith(
           bookIds: list,
@@ -26,8 +43,8 @@ class BookshelfBloc extends Bloc<BookshelfEvent, BookshelfState> {
       emit(
         state.copyWith(status: Status.inProgress),
       );
-      final list = List.of(state.bookIds);
-      list.remove(event.bookId);
+      await service.removeFromShelf(event.bookId);
+      final list = await service.getBooks();
 
       emit(
         state.copyWith(

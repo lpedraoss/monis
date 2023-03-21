@@ -5,6 +5,8 @@ import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/bookshelf/bookshelf_screen.dart';
 import 'package:monis/categories/categories_screen.dart';
 import 'package:monis/home/home_screen.dart';
+import 'package:monis/service/bookshelf_service.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,16 +20,25 @@ class MonisApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BookshelfBloc(
-        BookshelfState(),
-      ),
-      child: MaterialApp(
-        title: 'Monis',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        Provider(
+          create: (context) => BookShelfStorageService(),
         ),
-        home: const BottonNavigationWidget(),
+      ],
+      child: BlocProvider(
+        create: (_) {
+          return BookshelfBloc(
+            service: BookShelfStorageService(),
+          )..add(const StartShelfEvent());
+        },
+        child: MaterialApp(
+          title: 'Monis',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const BottonNavigationWidget(),
+        ),
       ),
     );
   }
