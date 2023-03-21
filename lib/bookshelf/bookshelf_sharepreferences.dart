@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
-import 'package:monis/model/book.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var bookSave = 'book';

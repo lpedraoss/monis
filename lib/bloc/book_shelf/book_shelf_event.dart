@@ -4,6 +4,10 @@ abstract class BookshelfEvent {
   const BookshelfEvent();
 }
 
+class StartShelfEvent extends BookshelfEvent {
+  const StartShelfEvent();
+}
+
 class AddBookToBookshelf extends BookshelfEvent {
   final String book;
   const AddBookToBookshelf(this.book);
