@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monis/categories/book_category_screen.dart';
 import 'package:monis/model/book_category.dart';
 import 'package:monis/utils.dart';
 
@@ -14,9 +15,10 @@ class CategoriesScreen extends StatelessWidget {
 class BookCategoriesGrid extends StatelessWidget {
   BookCategoriesGrid({super.key});
   final List<BookCategory> _categories = [
-    const BookCategory(1, 'Ciencia Ficcion', '#A9CCE3'),
-    const BookCategory(2, 'Fantasia', '#C5F023'),
-    const BookCategory(3, 'Drama', '#F0B3E1'),
+    const BookCategory('1', 'Ciencia Ficcion', '#A9CCE3'),
+    const BookCategory('2', 'Fantasia', '#C5F023'),
+    const BookCategory('3', 'Drama', '#F0B3E1'),
+    const BookCategory('4', 'Without category', '#efb810'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class TileCategory extends StatelessWidget {
         child: InkWell(
       borderRadius: BorderRadius.circular(4.0),
       onTap: () {
-        //TODO, navegar a categirias de libros
+        _openPageCategory(context, _category);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -60,4 +62,15 @@ class TileCategory extends StatelessWidget {
       ),
     ));
   }
+}
+
+void _openPageCategory(BuildContext context, BookCategory category) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => BookCategoryScreen(
+        category: category,
+      ),
+    ),
+  );
 }

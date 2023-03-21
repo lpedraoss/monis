@@ -18,7 +18,7 @@ class HeaderWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Image.asset(
-        'assets/images/anime.jpg',
+        'assets/images/anime1.jpg',
         //height: 300,
       ),
     );

@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _getLastBooks() async {
-    var lastBooks = await BookService().getBooks(booksQuantity: 60);
+    var lastBooks = await BookService().getBooks(booksQuantity: 3);
     setState(() {
       _books = lastBooks;
     });
@@ -32,11 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
     var listLength = showProgress ? 3 : _books.length + 2;
     return Container(
       decoration: const BoxDecoration(
-        image: DecorationImage(
+          /*image: DecorationImage(
           image: AssetImage('assets/images/anime1.jpg'),
           fit: BoxFit.cover,
-        ),
-      ),
+        ),*/
+          ),
       margin: const EdgeInsets.all(16),
       child: ListView.builder(
           itemCount: listLength,
@@ -48,10 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
             if (index == 1) {
               return Text(
                 'Ultimos libros de la biblioteca',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(fontSize: 25),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontSize: 25,
+                      color: Colors.black,
+                      //backgroundColor: Colors.pink.shade50.withOpacity(0.5),
+                    ),
               );
             }
             if (showProgress) {
@@ -75,7 +76,7 @@ class ListItemBook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white.withOpacity(0.5),
+      color: Colors.white.withOpacity(0.2),
       child: SizedBox(
         height: 170,
         child: InkWell(
@@ -107,7 +108,7 @@ class ListItemBook extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Titulo: ${_book.tittle}',
+                        _book.tittle,
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!
@@ -116,7 +117,7 @@ class ListItemBook extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        'Autor: ${_book.author}',
+                        _book.author,
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!
@@ -124,7 +125,7 @@ class ListItemBook extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'Descripcion: ${_book.description}',
+                        _book.description,
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall!
