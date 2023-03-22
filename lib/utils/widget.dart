@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:monis/book_details/book_details_screen.dart';
+import 'package:monis/model/book.dart';
 
 coverUrl(String coverUrl) {
   return coverUrl.startsWith('http')
@@ -18,9 +20,14 @@ class HeaderWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Image.asset(
-        'assets/images/anime.jpg',
+        'assets/images/anime1.jpg',
         //height: 300,
       ),
     );
   }
+}
+
+void openBookDetails(BuildContext context, Book book) {
+  Navigator.push(context,
+      MaterialPageRoute(builder: (context) => BookDetailsScreen(book)));
 }

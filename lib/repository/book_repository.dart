@@ -44,6 +44,22 @@ class BookRepository {
     throw const HttpException("Book not found");
   }
 
+  ///find the book for [category]
+  Future<List<Book>> getBookForCategory({required String category}) async {
+    var result = await _booksRef.get().then((value) => value);
+    List<Book> books = [];
+    bool comparison;
+    for (var doc in result.docs) {
+      doc.data().category;
+      comparison = (doc.data().category.toString() == (category));
+
+      if (comparison) {
+        books.add(doc.data());
+      }
+    }
+    return Future.value(books);
+  }
+
   ///Save [newBook] at firebase
   Future<String> saveBook(String title, String author, String summary) async {
     var reference = FirebaseFirestore.instance.collection('books');

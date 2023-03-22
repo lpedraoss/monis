@@ -1,6 +1,18 @@
 part of 'add_book_screen.dart';
 
 class AddBookFormState extends State<AddBookForm> {
+  final List<String> items = [
+    'Drama',
+    'Fantasia',
+    'Ciencia Ficcion',
+  ];
+  String? selectedItem;
+  final List<bool> _checked = [
+    false,
+    false,
+    false,
+  ];
+
   ///access the values ​​of [textFormfield] via controller
   final _titleEditingController = TextEditingController(),
       _authEditingController = TextEditingController(),
@@ -66,6 +78,39 @@ class AddBookFormState extends State<AddBookForm> {
                       validator: (value) => (value == null || value.isEmpty)
                           ? "por favor ingrese el resumen del libro"
                           : (null),
+                    ),
+
+                    // se crea una lista desplegable para seleccionar varias opciones
+                    Center(
+                      child: InputDecorator(
+                        // ignore: prefer_const_constructors
+                        decoration: InputDecoration(
+                          labelText: 'Seleccionar una opción',
+                          border: InputBorder.none,
+                        ),
+
+                        child: Container(
+                          padding: const EdgeInsets.only(right: 200),
+                          child: DropdownButton(
+                            icon: const Icon(Icons.arrow_drop_down_circle),
+                            dropdownColor: Colors.amber,
+                            iconDisabledColor: Colors.grey,
+                            iconEnabledColor: Colors.amber,
+                            value: selectedItem,
+                            items: items.map((opcion) {
+                              return DropdownMenuItem(
+                                value: opcion,
+                                child: Text(opcion),
+                              );
+                            }).toList(),
+                            onChanged: (valorSeleccionado) {
+                              setState(() {
+                                selectedItem = valorSeleccionado!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20, bottom: 20),

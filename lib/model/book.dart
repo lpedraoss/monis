@@ -5,12 +5,14 @@ class Book {
   final String author;
   final String description;
   final String coverUrl;
+  final String category;
   Book({
     this.id,
     required this.tittle,
     this.author = '',
     this.description = '',
     this.coverUrl = '',
+    this.category = '',
   });
 //modelo book
 
@@ -27,14 +29,17 @@ class Book {
 
   factory Book.fromMap(Map<String, dynamic> map) {
     return Book(
-      id: map['id'] as String,
-      tittle: map['name'] as String,
-      author: map['author'] as String,
-      description: map['summary'] as String,
-      coverUrl: map.containsKey('coverUrl')
-          ? map['coverUrl'] as String
-          : 'assets/images/book1.jpg', /*si no existe portada se coloca una predeterminada*/
-    );
+        id: map['id'] as String,
+        tittle: map['name'] as String,
+        author: map['author'] as String,
+        description: map['summary'] as String,
+        coverUrl: map.containsKey('coverUrl')
+            ? map['coverUrl'] as String
+            : 'assets/images/book1.jpg',
+        /*si no existe portada se coloca una predeterminada*/
+        category: map.containsKey('category')
+            ? map['category'] as String
+            : 'without category');
   }
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -43,6 +48,7 @@ class Book {
       'author': author,
       'summary': description,
       'coverUrl': coverUrl,
+      'category': category,
     };
   }
 
@@ -52,6 +58,7 @@ class Book {
     String? author,
     String? description,
     String? coverUrl,
+    String? category,
   }) {
     return Book(
       id: id ?? this.id,
@@ -59,6 +66,7 @@ class Book {
       author: author ?? this.author,
       description: description ?? this.description,
       coverUrl: coverUrl ?? this.coverUrl,
+      category: category ?? this.category,
     );
   }
 }

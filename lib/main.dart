@@ -33,10 +33,8 @@ class MonisApp extends StatelessWidget {
           )..add(const StartShelfEvent());
         },
         child: MaterialApp(
-          title: 'Monis',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          title: 'Monis Library',
+          theme: ThemeData.dark(),
           home: const BottonNavigationWidget(),
         ),
       ),
@@ -62,7 +60,11 @@ class _BottonNavigationWidgetState extends State<BottonNavigationWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Booksy'),
+        title: const Center(
+          child: Text(
+            'Monis App Library',
+          ),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
