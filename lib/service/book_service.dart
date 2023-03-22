@@ -9,7 +9,8 @@ class BookService {
   Future<List<Book>> getLibrary() async => _repository.getLibrary();
   Future<Book> getBook(String bookId) async =>
       _repository.getBook(bookId: bookId);
-
+  Future<List<Book>> getBookForCategory({required String category}) async =>
+      _repository.getBookForCategory(category: category);
   Future<String> saveBook(Book book) async => _repository.saveBook(
         book.tittle,
         book.author,

@@ -33,10 +33,8 @@ class MonisApp extends StatelessWidget {
           )..add(const StartShelfEvent());
         },
         child: MaterialApp(
-          title: 'Monis',
-          theme: ThemeData(
-            primarySwatch: Colors.lime,
-          ),
+          title: 'Monis Library',
+          theme: ThemeData.dark(),
           home: const BottonNavigationWidget(),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:monis/book_details/book_details_screen.dart';
 import 'package:monis/model/book.dart';
 import 'package:monis/service/book_service.dart';
 import 'package:monis/utils/widget.dart';
@@ -76,13 +75,13 @@ class ListItemBook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white.withOpacity(0.2),
+      color: Colors.white.withOpacity(0.7),
       child: SizedBox(
         height: 170,
         child: InkWell(
           borderRadius: BorderRadius.circular(4.0),
           onTap: () {
-            _openBookDetails(context, _book);
+            openBookDetails(context, _book);
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -94,7 +93,7 @@ class ListItemBook extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 2, bottom: 2),
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.white.withOpacity(0.7),
                           spreadRadius: 5,
                           blurRadius: 20)
                     ]),
@@ -113,7 +112,7 @@ class ListItemBook extends StatelessWidget {
                             .textTheme
                             .titleLarge!
                             .copyWith(fontSize: 18),
-                        maxLines: 2,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
@@ -143,10 +142,5 @@ class ListItemBook extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _openBookDetails(BuildContext context, Book book) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BookDetailsScreen(book)));
   }
 }
