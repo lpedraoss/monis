@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monis/home/home_screen.dart';
+import 'package:monis/item_books/item_books.dart';
 import 'package:monis/model/book.dart';
 import 'package:monis/model/book_category.dart';
 import 'package:monis/service/book_service.dart';
@@ -66,11 +67,11 @@ class CategoryScreenBookState extends State<CategoryScreenBook> {
     var listLength = showProgress ? 3 : _books.length + 2;
     return Container(
       decoration: const BoxDecoration(
-          /*image: DecorationImage(
-          image: AssetImage('assets/images/anime1.jpg'),
+        image: DecorationImage(
+          image: AssetImage('assets/images/anime3.jpg'),
           fit: BoxFit.cover,
-        ),*/
-          ),
+        ),
+      ),
       margin: const EdgeInsets.all(16),
       child: ListView.builder(
           itemCount: listLength,

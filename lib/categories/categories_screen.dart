@@ -18,19 +18,20 @@ class BookCategoriesGrid extends StatelessWidget {
     const BookCategory('1', 'Ciencia Ficcion', '#A9CCE3'),
     const BookCategory('2', 'Fantasia', '#C5F023'),
     const BookCategory('3', 'Drama', '#F0B3E1'),
-    const BookCategory('4', 'Without category', '#efb810'),
+    const BookCategory('4', 'Suspenso', '#efb810'),
   ];
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(16),
       child: GridView.builder(
-          itemCount: _categories.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
-          itemBuilder: (context, index) {
-            return TileCategory(_categories[index]);
-          }),
+        itemCount: _categories.length,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (context, index) {
+          return TileCategory(_categories[index]);
+        },
+      ),
     );
   }
 }
@@ -74,3 +75,14 @@ void _openPageCategory(BuildContext context, BookCategory category) {
     ),
   );
 }
+/*
+ const SizedBox(height: 20),
+          Text(
+            'Theme: ${themeCubit.state ? 'Dark' : 'Light'}',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            child: const Text('Toggle Theme'),
+            onPressed: () => themeCubit.toggle(),
+          ),*/
