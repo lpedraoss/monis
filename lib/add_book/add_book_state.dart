@@ -7,11 +7,6 @@ class AddBookFormState extends State<AddBookForm> {
     'Ciencia Ficcion',
   ];
   String? selectedItem;
-  final List<bool> _checked = [
-    false,
-    false,
-    false,
-  ];
 
   ///access the values ​​of [textFormfield] via controller
   final _titleEditingController = TextEditingController(),
