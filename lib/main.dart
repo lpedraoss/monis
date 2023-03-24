@@ -6,7 +6,7 @@ import 'package:monis/bookshelf/bookshelf_screen.dart';
 import 'package:monis/categories/categories_screen.dart';
 import 'package:monis/home/home_screen.dart';
 import 'package:monis/service/bookshelf_service.dart';
-import 'package:monis/themes/theme.dart';
+import 'package:monis/themes/theme_cubit.dart';
 import 'package:monis/themes/theme_switcher.dart';
 import 'package:provider/provider.dart';
 
@@ -30,16 +30,13 @@ class MonisApp extends StatelessWidget {
           create: (context) => ThemeCubit(),
         ),
       ],
-      child: ChangeNotifierProvider<ThemeProvider>(
-        create: (_) => ThemeProvider(),
-        child: BlocProvider(
-          create: (_) {
-            return BookshelfBloc(
-              service: BookShelfStorageService(),
-            )..add(const StartShelfEvent());
-          },
-          child: const MyApp(),
-        ),
+      child: BlocProvider(
+        create: (_) {
+          return BookshelfBloc(
+            service: BookShelfStorageService(),
+          )..add(const StartShelfEvent());
+        },
+        child: const MyApp(),
       ),
     );
   }
@@ -50,13 +47,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    final themeCubit = context.watch<ThemeCubit>();
-    final themeProvider = context.read<ThemeProvider>();
-
-    return MaterialApp(
-      theme: themeProvider.current,
-      home: const BottonNavigationWidget(),
+    return BlocBuilder<ThemeCubit, ThemeOption>(
+      builder: (context, state) {
+        return MaterialApp(
+          theme: state.getThemeData(),
+          home: const BottonNavigationWidget(),
+        );
+      },
     );
   }
 }
