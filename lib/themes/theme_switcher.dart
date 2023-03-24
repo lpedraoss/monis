@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:monis/themes/theme.dart';
+import 'package:monis/themes/theme_cubit.dart';
 
 class SwitcherTheme extends StatelessWidget {
   const SwitcherTheme({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeCubit = context.watch<ThemeCubit>();
-    final themeProvider = context.read<ThemeProvider>();
+    final themeCubit = BlocProvider.of<ThemeCubit>(context);
 
     return Center(
       child: Column(
@@ -16,31 +15,45 @@ class SwitcherTheme extends StatelessWidget {
         children: [
           const Text(
             'Temas a elegir',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(
             height: 30,
           ),
           ElevatedButton(
             onPressed: () {
-              themeCubit.changeTouwuTheme();
-              themeProvider.setTheme(themeProvider.uwuTheme);
+              themeCubit.changeTheme(
+                ThemeOption.pink,
+              );
             },
             child: const Text('UwU Theme'),
           ),
           ElevatedButton(
             onPressed: () {
-              themeCubit.changeToBlueTheme();
-              themeProvider.setTheme(themeProvider.blueTheme);
+              themeCubit.changeTheme(
+                ThemeOption.blue,
+              );
             },
             child: const Text('Blue Theme'),
           ),
           ElevatedButton(
             onPressed: () {
-              themeCubit.changeToAmberTheme();
-              themeProvider.setTheme(themeProvider.amberTheme);
+              themeCubit.changeTheme(
+                ThemeOption.amber,
+              );
             },
             child: const Text('Amber Theme'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              themeCubit.changeTheme(
+                ThemeOption.dark,
+              );
+            },
+            child: const Text('Dark Theme'),
           ),
         ],
       ),
