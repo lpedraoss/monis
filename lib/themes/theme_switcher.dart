@@ -23,37 +23,13 @@ class SwitcherTheme extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          ElevatedButton(
-            onPressed: () {
-              themeCubit.changeTheme(
-                ThemeOption.pink,
-              );
-            },
-            child: const Text('UwU Theme'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              themeCubit.changeTheme(
-                ThemeOption.blue,
-              );
-            },
-            child: const Text('Blue Theme'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              themeCubit.changeTheme(
-                ThemeOption.amber,
-              );
-            },
-            child: const Text('Amber Theme'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              themeCubit.changeTheme(
-                ThemeOption.dark,
-              );
-            },
-            child: const Text('Dark Theme'),
+          ...ThemeOption.values.map<Widget>(
+            (e) => ElevatedButton(
+              onPressed: () {
+                themeCubit.changeTheme(e);
+              },
+              child: Text(e.title),
+            ),
           ),
         ],
       ),
