@@ -30,7 +30,7 @@ class MonisApp extends StatelessWidget {
         BlocProvider<ThemeCubit>(
           create: (context) => ThemeCubit(
             ThemeStorageService(),
-          ),
+          )..getTheme(),
         ),
       ],
       child: BlocProvider(
