@@ -6,28 +6,17 @@ part 'theme_mode.dart';
 part 'themes.dart';
 
 class ThemeCubit extends Cubit<ThemeOption> {
-  var service = ThemeStorageService();
+  final ThemeStorageService _service;
   late ThemeOption themeOption;
-  //final initTheme = getTheme().getThemeData;
-  ThemeCubit() : super(ThemeOption.pink) {
+  ThemeCubit(this._service) : super(ThemeOption.pink) {
     getTheme();
   }
   void changeTheme(ThemeOption option) async {
-    // void changeTheme(String option) async {
-    final themeName = option.title;
-
-    await service.changeTheme(themeName);
-    themeOption = await service.getTheme();
-    emit(themeOption);
+    await _service.changeTheme(option);
+    emit(option);
   }
 
   void getTheme() async {
-    themeOption = await service.getTheme();
-    emit(themeOption);
+    emit((await _service.getTheme()));
   }
-
-  // void changeTouwuTheme() => emit(ThemeOption.pink);
-  // void changeToBlueTheme() => emit(ThemeOption.blue);
-  // void changeToAmberTheme() => emit(ThemeOption.amber);
-  // void changeToDarkTheme() => emit(ThemeOption.dark);
 }
