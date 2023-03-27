@@ -6,6 +6,7 @@ import 'package:monis/bookshelf/bookshelf_screen.dart';
 import 'package:monis/categories/categories_screen.dart';
 import 'package:monis/home/home_screen.dart';
 import 'package:monis/service/bookshelf_service.dart';
+import 'package:monis/service/theme_service.dart';
 import 'package:monis/themes/theme_cubit.dart';
 import 'package:monis/themes/theme_switcher.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,9 @@ class MonisApp extends StatelessWidget {
           create: (context) => BookShelfStorageService(),
         ),
         BlocProvider<ThemeCubit>(
-          create: (context) => ThemeCubit(),
+          create: (context) => ThemeCubit(
+            ThemeStorageService(),
+          )..getTheme(),
         ),
       ],
       child: BlocProvider(
