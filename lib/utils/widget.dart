@@ -36,7 +36,7 @@ void openBookDetails(BuildContext context, Book book) {
 final categories = CategoryListService();
 final itemsCategory = categories.getAllCategories().map((e) => e.name);
 
-String? selectedItem;
+String? selectedItem = itemsCategory.first;
 
 class DropDownCategory extends StatefulWidget {
   const DropDownCategory(BuildContext context, {super.key});
@@ -64,7 +64,7 @@ class DropDownCategoryState extends State<DropDownCategory> {
       }).toList(),
       onChanged: (valorSeleccionado) {
         setState(() {
-          selectedItem = valorSeleccionado!;
+          selectedItem = valorSeleccionado;
         });
       },
     );
