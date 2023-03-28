@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:monis/model/book_category.dart';
 
 abstract class CategoryRepository {

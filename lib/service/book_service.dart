@@ -15,6 +15,7 @@ class BookService {
         book.tittle,
         book.author,
         book.description,
+        book.category,
       );
 
   Future<String> uploadBookCover(String imagePath, String newBookId) async =>

@@ -39,7 +39,7 @@ final itemsCategory = categories.getAllCategories().map((e) => e.name);
 String? selectedItem;
 
 class DropDownCategory extends StatefulWidget {
-  const DropDownCategory({super.key});
+  const DropDownCategory(BuildContext context, {super.key});
 
   @override
   State<StatefulWidget> createState() {
