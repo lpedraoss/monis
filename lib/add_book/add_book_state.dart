@@ -99,9 +99,11 @@ class AddBookFormState extends State<AddBookForm> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          _activeWidget = true;
-                        });
+                        if (_formKey.currentState!.validate() == true) {
+                          setState(() {
+                            _activeWidget = true;
+                          });
+                        }
 
                         if (_formKey.currentState!.validate()) {
                           _saveBook(context);
