@@ -79,7 +79,9 @@ class AddBookFormState extends State<AddBookForm> {
 
                         child: Container(
                           padding: const EdgeInsets.only(right: 200),
-                          child: const DropDownCategory(),
+                          child: DropDownCategory(
+                            context,
+                          ),
                         ),
                       ),
                     ),
@@ -133,13 +135,15 @@ class AddBookFormState extends State<AddBookForm> {
   void _saveBook(BuildContext context) async {
     var title = _titleEditingController.text,
         author = _authEditingController.text,
-        summary = _summEditingController.text;
+        summary = _summEditingController.text,
+        category = selectedItem;
 
     // ignore: await_only_futures
     var book = Book(
       tittle: title,
       author: author,
       description: summary,
+      category: category ?? 'Without Category',
     );
     final service = BookService();
     var newBookId = await service.saveBook(book);

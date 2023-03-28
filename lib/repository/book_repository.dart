@@ -61,12 +61,14 @@ class BookRepository {
   }
 
   ///Save [newBook] at firebase
-  Future<String> saveBook(String title, String author, String summary) async {
+  Future<String> saveBook(
+      String title, String author, String summary, String category) async {
     var reference = FirebaseFirestore.instance.collection('books');
     var newBook = await reference.add({
       'name': title,
       'author': author,
       'summary': summary,
+      'category': category,
     });
     return Future.value(newBook.id);
   }
