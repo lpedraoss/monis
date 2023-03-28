@@ -1,13 +1,6 @@
 part of 'add_book_screen.dart';
 
 class AddBookFormState extends State<AddBookForm> {
-  final List<String> items = [
-    'Drama',
-    'Fantasia',
-    'Ciencia Ficcion',
-  ];
-  String? selectedItem;
-
   ///access the values ​​of [textFormfield] via controller
   final _titleEditingController = TextEditingController(),
       _authEditingController = TextEditingController(),
@@ -86,24 +79,7 @@ class AddBookFormState extends State<AddBookForm> {
 
                         child: Container(
                           padding: const EdgeInsets.only(right: 200),
-                          child: DropdownButton(
-                            icon: const Icon(Icons.arrow_drop_down_circle),
-                            dropdownColor: Colors.amber,
-                            iconDisabledColor: Colors.grey,
-                            iconEnabledColor: Colors.amber,
-                            value: selectedItem,
-                            items: items.map((opcion) {
-                              return DropdownMenuItem(
-                                value: opcion,
-                                child: Text(opcion),
-                              );
-                            }).toList(),
-                            onChanged: (valorSeleccionado) {
-                              setState(() {
-                                selectedItem = valorSeleccionado!;
-                              });
-                            },
-                          ),
+                          child: const DropDownCategory(),
                         ),
                       ),
                     ),
