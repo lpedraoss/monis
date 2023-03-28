@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monis/categories/book_category_screen.dart';
 import 'package:monis/model/book_category.dart';
+import 'package:monis/service/category_service.dart';
 import 'package:monis/utils.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -14,12 +15,8 @@ class CategoriesScreen extends StatelessWidget {
 
 class BookCategoriesGrid extends StatelessWidget {
   BookCategoriesGrid({super.key});
-  final List<BookCategory> _categories = [
-    const BookCategory('1', 'Ciencia Ficcion', '#A9CCE3'),
-    const BookCategory('2', 'Fantasia', '#C5F023'),
-    const BookCategory('3', 'Drama', '#F0B3E1'),
-    const BookCategory('4', 'Suspenso', '#efb810'),
-  ];
+  final List<BookCategory> _categories =
+      CategoryListService().getAllCategories();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,14 +72,3 @@ void _openPageCategory(BuildContext context, BookCategory category) {
     ),
   );
 }
-/*
- const SizedBox(height: 20),
-          Text(
-            'Theme: ${themeCubit.state ? 'Dark' : 'Light'}',
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            child: const Text('Toggle Theme'),
-            onPressed: () => themeCubit.toggle(),
-          ),*/

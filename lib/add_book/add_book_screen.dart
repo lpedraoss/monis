@@ -7,6 +7,7 @@ import 'package:monis/add_book/take_picture_screen.dart';
 import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/model/book.dart';
 import 'package:monis/utils/status.dart';
+import 'package:monis/utils/widget.dart';
 
 import '../service/book_service.dart';
 
