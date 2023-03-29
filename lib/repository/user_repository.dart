@@ -4,20 +4,25 @@ import 'package:monis/model/user.dart';
 import 'package:monis/utils/golbal_variable.dart';
 
 ///interface of [User]
-abstract class UserRepository {
+abstract class UserInterface {
   ///find the book for [userName]
   Future<List<User>> getUser({required String userName});
 
   ///conect the DB to flutter app with reference [_usersRef]
   Future<List<User>> getAllUsers();
 
+  ///save a user
   Future<String> saveUser({
     required String name,
     required String userName,
     required String password,
   });
+
+  ///delete a user
   Future<void> removeUser({required String userId});
 }
+
+abstract class UserRepository extends UserInterface {}
 
 ///Show [users] from firebase
 class UserFirebaseRepository extends UserRepository {

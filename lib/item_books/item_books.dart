@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monis/model/book.dart';
-import 'package:monis/utils/golbal_variable.dart';
 import 'package:monis/utils/golbal_widget.dart';
+import 'package:monis/utils/utils.dart';
 
 class ListItemBook extends StatelessWidget {
   final Book _book;
