@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:monis/add_book/display_picture_screen.dart';
+import 'package:monis/pages/add_book/display_picture_screen.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({Key? key}) : super(key: key);
