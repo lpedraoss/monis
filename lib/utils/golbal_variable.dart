@@ -6,15 +6,15 @@ final itemsCategory =
     CategoryListService().getAllCategories().map((e) => e.name);
 
 ///collection from firebase
-const userCollection = 'users', bookCollection = 'books';
+const _userCollection = 'users', _bookCollection = 'books';
 
-/// reference [userCollection] from firebase
+/// reference [_userCollection] from firebase
 final userInstanceFirebase =
-    FirebaseFirestore.instance.collection(userCollection);
+    FirebaseFirestore.instance.collection(_userCollection);
 
-/// reference [bookCollection] from firebase
+/// reference [_bookCollection] from firebase
 final bookInstanceFirebase =
-    FirebaseFirestore.instance.collection(bookCollection);
+    FirebaseFirestore.instance.collection(_bookCollection);
 
 ///item selected from dropdown
 String? selectedItem = itemsCategory.first;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:monis/themes/theme_cubit.dart';
+import 'package:monis/cubit/theme/theme_cubit.dart';
 
 class SwitcherTheme extends StatelessWidget {
   const SwitcherTheme({super.key});

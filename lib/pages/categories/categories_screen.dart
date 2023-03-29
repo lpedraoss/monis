@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:monis/categories/book_category_screen.dart';
+import 'package:monis/pages/categories/book_category_screen.dart';
 import 'package:monis/model/book_category.dart';
 import 'package:monis/service/category_service.dart';
-import 'package:monis/utils.dart';
+
+import 'package:monis/utils/utils.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});

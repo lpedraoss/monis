@@ -2,12 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
-import 'package:monis/bookshelf/bookshelf_screen.dart';
-import 'package:monis/categories/categories_screen.dart';
-import 'package:monis/home/home_screen.dart';
+
+import 'package:monis/pages/bookshelf/bookshelf_screen.dart';
+import 'package:monis/pages/categories/categories_screen.dart';
+import 'package:monis/cubit/theme/theme_cubit.dart';
+import 'package:monis/pages/home/home_screen.dart';
 import 'package:monis/service/bookshelf_service.dart';
 import 'package:monis/service/theme_service.dart';
-import 'package:monis/themes/theme_cubit.dart';
+
 import 'package:monis/themes/theme_switcher.dart';
 import 'package:provider/provider.dart';
 

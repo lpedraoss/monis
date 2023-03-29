@@ -18,11 +18,13 @@ enum ThemeOption {
 extension ThemeOptions on String {
   ThemeOption get toThemeOption {
     final v = toLowerCase();
+    var theme = ThemeOption.pink;
     for (final option in ThemeOption.values) {
       if (v == option.title.toLowerCase()) {
-        return option;
+        theme = option;
+        return theme;
       }
     }
-    return ThemeOption.pink;
+    return theme;
   }
 }
