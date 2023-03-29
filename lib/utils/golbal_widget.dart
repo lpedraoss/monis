@@ -27,11 +27,13 @@ class HeaderWidget extends StatelessWidget {
   }
 }
 
+/// Open details at book selected
 void openBookDetails(BuildContext context, Book book) {
   Navigator.push(context,
       MaterialPageRoute(builder: (context) => BookDetailsScreen(book)));
 }
 
+/// Create a Dropdown with list of categories
 class DropDownCategory extends StatefulWidget {
   const DropDownCategory(BuildContext context, {super.key});
 
@@ -41,6 +43,7 @@ class DropDownCategory extends StatefulWidget {
   }
 }
 
+/// state of dropdown category
 class DropDownCategoryState extends State<DropDownCategory> {
   @override
   Widget build(BuildContext context) {
