@@ -1,20 +1,19 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:monis/model/book.dart';
+import 'package:monis/utils/golbal_variable.dart';
 
 ///Show [books] from firebase
 class BookRepository {
   ///conect the DB to flutter app with reference [booksRef]
-  final _booksRef =
-      FirebaseFirestore.instance.collection('books').withConverter(
-            fromFirestore: (snapshot, _) => Book.fromMap(
-              {...snapshot.data()!, "id": snapshot.id},
-            ),
-            toFirestore: (book, _) => book.toMap(),
-          );
+  final _booksRef = bookInstanceFirebase.withConverter(
+    fromFirestore: (snapshot, _) => Book.fromMap(
+      {...snapshot.data()!, "id": snapshot.id},
+    ),
+    toFirestore: (book, _) => book.toMap(),
+  );
 
   ///find the last [booksQuantity] books from [_booksRef]
   Future<List<Book>> getLastBooks({required int booksQuantity}) async {
@@ -63,8 +62,7 @@ class BookRepository {
   ///Save [newBook] at firebase
   Future<String> saveBook(
       String title, String author, String summary, String category) async {
-    var reference = FirebaseFirestore.instance.collection('books');
-    var newBook = await reference.add({
+    var newBook = await bookInstanceFirebase.add({
       'name': title,
       'author': author,
       'summary': summary,
@@ -89,9 +87,7 @@ class BookRepository {
 
   ///load the image of [bookId] using the [reference]
   Future<void> updateCoverBook(String newBookId, String imageUrl) async {
-    String bookId = newBookId;
-    var reference = FirebaseFirestore.instance.collection('books').doc(bookId);
-    return reference.update({
+    return bookInstanceFirebase.doc(newBookId).update({
       'coverUrl': imageUrl,
     });
   }
