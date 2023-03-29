@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/model/book.dart';
-import 'package:monis/utils/widget.dart';
+import 'package:monis/utils/golbal_variable.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   const BookDetailsScreen(this._book, {super.key});

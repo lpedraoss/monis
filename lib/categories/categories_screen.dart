@@ -66,9 +66,8 @@ void _openPageCategory(BuildContext context, BookCategory category) {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => BookCategoryScreen(
-        category: category,
-      ),
+      // ignore: prefer_const_constructors
+      builder: (context) => BookCategoryScreen(category: category),
     ),
   );
 }
