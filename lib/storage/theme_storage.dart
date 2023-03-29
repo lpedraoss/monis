@@ -1,4 +1,4 @@
-import 'package:monis/themes/theme_cubit.dart';
+import 'package:monis/cubit/theme/theme_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ThemeStorage {

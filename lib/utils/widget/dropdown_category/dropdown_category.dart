@@ -1,37 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monis/book_details/book_details_screen.dart';
-import 'package:monis/model/book.dart';
 import 'package:monis/utils/golbal_variable.dart';
-
-///load the background
-BoxDecoration backgroundImage = const BoxDecoration(
-  image: DecorationImage(
-    image: AssetImage('assets/images/anime3.jpg'),
-    fit: BoxFit.cover,
-  ),
-);
-
-///load the header
-class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.asset(
-        'assets/images/anime1.jpg',
-        //height: 300,
-      ),
-    );
-  }
-}
-
-/// Open details at book selected
-void openBookDetails(BuildContext context, Book book) {
-  Navigator.push(context,
-      MaterialPageRoute(builder: (context) => BookDetailsScreen(book)));
-}
 
 /// Create a Dropdown with list of categories
 class DropDownCategory extends StatefulWidget {

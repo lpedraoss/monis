@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monis/book_screen/book_screen.dart';
+import 'package:monis/pages/book_screen/book_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

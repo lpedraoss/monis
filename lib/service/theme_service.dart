@@ -1,5 +1,5 @@
+import 'package:monis/cubit/theme/theme_cubit.dart';
 import 'package:monis/storage/theme_storage.dart';
-import 'package:monis/themes/theme_cubit.dart';
 
 abstract class ThemeService {
   Future<ThemeOption> getTheme();
