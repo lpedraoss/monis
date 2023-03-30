@@ -3,7 +3,7 @@ import 'package:monis/utils/golbal_variable.dart';
 
 /// Create a Dropdown with list of categories
 class DropDownCategory extends StatefulWidget {
-  const DropDownCategory(BuildContext context, {super.key});
+  const DropDownCategory({super.key});
 
   @override
   State<StatefulWidget> createState() {

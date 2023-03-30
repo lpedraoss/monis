@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:monis/domain/model/user.dart';
-import 'package:monis/utils/golbal_variable.dart';
 
 ///interface of [User]
 abstract class UserInterface {
@@ -26,6 +26,12 @@ abstract class UserRepository extends UserInterface {}
 
 ///Show [users] from firebase
 class UserFirebaseRepository extends UserRepository {
+  ///collection from firebase
+  static const _userCollection = 'users';
+
+  /// reference [_userCollection] from firebase
+  static final userInstanceFirebase =
+      FirebaseFirestore.instance.collection(_userCollection);
   final _usersRef = userInstanceFirebase.withConverter(
     fromFirestore: (snapshot, _) => User.fromMap(
       {...snapshot.data()!, "id": snapshot.id},

@@ -30,7 +30,7 @@ class _BookScreenState extends State<BookScreen> {
   @override
   void initState() {
     // something = funcionesa();
-    context.read<PruebasFutureCubit>().hola();
+    // context.read<PruebasFutureCubit>().hola();
 
     super.initState();
     _getLibrary();
@@ -73,17 +73,17 @@ class _BookScreenState extends State<BookScreen> {
             if (index == 1) {
               return Column(
                 children: [
-                  BlocBuilder<PruebasFutureCubit, PruebasFutureState>(
-                    builder: (context, state) {
-                      if ((state.data ?? '').isEmpty) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
+                  // BlocBuilder<PruebasFutureCubit, PruebasFutureState>(
+                  //   builder: (context, state) {
+                  //     if ((state.data ?? '').isEmpty) {
+                  //       return const Center(
+                  //         child: CircularProgressIndicator(),
+                  //       );
+                  //     }
 
-                      return Text(state.data ?? '');
-                    },
-                  ),
+                  //     return Text(state.data ?? '');
+                  //   },
+                  // ),
                   // FutureBuilder(
                   //   future: something,
                   //   builder: (context, snapshot) {

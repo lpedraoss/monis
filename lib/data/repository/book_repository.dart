@@ -1,12 +1,18 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:monis/domain/model/book.dart';
-import 'package:monis/utils/golbal_variable.dart';
 
 ///Show [books] from firebase
 class BookRepository {
+  static const _bookCollection = 'books';
+
+  /// reference [_bookCollection] from firebase
+  static final bookInstanceFirebase =
+      FirebaseFirestore.instance.collection(_bookCollection);
+
   ///conect the DB to flutter app with reference [booksRef]
   final _booksRef = bookInstanceFirebase.withConverter(
     fromFirestore: (snapshot, _) => Book.fromMap(

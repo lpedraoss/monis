@@ -79,9 +79,7 @@ class AddBookFormState extends State<AddBookForm> {
 
                         child: Container(
                           padding: const EdgeInsets.only(right: 200),
-                          child: DropDownCategory(
-                            context,
-                          ),
+                          child: const DropDownCategory(),
                         ),
                       ),
                     ),
