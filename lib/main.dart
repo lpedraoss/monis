@@ -1,16 +1,16 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:monis/bloc/book_shelf/book_shelf_bloc.dart';
-
-import 'package:monis/pages/bookshelf/bookshelf_screen.dart';
-import 'package:monis/pages/categories/categories_screen.dart';
-import 'package:monis/cubit/theme/theme_cubit.dart';
-import 'package:monis/pages/home/home_screen.dart';
-import 'package:monis/service/bookshelf_service.dart';
-import 'package:monis/service/theme_service.dart';
-
-import 'package:monis/themes/theme_switcher.dart';
+import 'package:monis/domain/service/bookshelf_service.dart';
+import 'package:monis/domain/service/theme_service.dart';
+import 'package:monis/presentation/bloc/book_shelf/book_shelf_bloc.dart';
+import 'package:monis/presentation/bloc/pruebas_future/pruebas_future_cubit.dart';
+import 'package:monis/presentation/bloc/theme/theme_cubit.dart';
+import 'package:monis/presentation/view/bookshelf/bookshelf_screen.dart';
+import 'package:monis/presentation/view/categories/categories_screen.dart';
+import 'package:monis/presentation/view/home/home_screen.dart';
+import 'package:monis/presentation/view/themes/theme_switcher.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -35,12 +35,25 @@ class MonisApp extends StatelessWidget {
           )..getTheme(),
         ),
       ],
-      child: BlocProvider(
-        create: (_) {
-          return BookshelfBloc(
-            service: BookShelfStorageService(),
-          )..add(const StartShelfEvent());
-        },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) {
+              return BookshelfBloc(
+                service: BookShelfStorageService(),
+              )..add(const StartShelfEvent());
+            },
+          ),
+          BlocProvider(
+            create: (context) => ThemeCubit(
+              ThemeStorageService(),
+            )..getTheme(),
+          ),
+          BlocProvider(
+            create: (context) => PruebasFutureCubit(
+            ),
+          ),
+        ],
         child: const MyApp(),
       ),
     );

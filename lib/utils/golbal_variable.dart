@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:monis/service/category_service.dart';
+import 'package:monis/domain/service/category_service.dart';
 
 ///load the existent categories
 final itemsCategory =
