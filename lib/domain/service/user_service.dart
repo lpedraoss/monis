@@ -1,7 +1,13 @@
 import 'package:monis/domain/model/user.dart';
 import 'package:monis/data/repository/user_repository.dart';
+import 'package:monis/utils/status.dart';
 
-abstract class UserService extends UserInterface {}
+abstract class UserService extends UserInterface {
+  Future<Status> loginUser({
+    required String userName,
+    required String password,
+  });
+}
 
 class UserServicesFirebase extends UserService {
   final _repository = UserFirebaseRepository();
@@ -13,7 +19,7 @@ class UserServicesFirebase extends UserService {
       _repository.getUser(userName: userName);
 
   @override
-  Future<void> removeUser({required String userId}) =>
+  Future<void> removeUser({required String userId}) async =>
       _repository.removeUser(userId: userId);
 
   @override
@@ -26,4 +32,19 @@ class UserServicesFirebase extends UserService {
         userName: userName,
         password: password,
       );
+
+  @override
+  Future<Status> loginUser({
+    required String userName,
+    required String password,
+  }) async {
+    final users = await getUser(userName: userName);
+    final nameUser = users.map((e) => e.userName);
+    final passUser = users.map((e) => e.password);
+    Status status;
+    nameUser.contains(userName) == true && passUser.contains(password)
+        ? status = Status.success
+        : status = Status.fail;
+    return status;
+  }
 }

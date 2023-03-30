@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:monis/domain/service/bookshelf_service.dart';
 import 'package:monis/domain/service/theme_service.dart';
 import 'package:monis/presentation/bloc/book_shelf/book_shelf_bloc.dart';
-import 'package:monis/presentation/bloc/pruebas_future/pruebas_future_cubit.dart';
 import 'package:monis/presentation/bloc/theme/theme_cubit.dart';
 import 'package:monis/presentation/view/bookshelf/bookshelf_screen.dart';
 import 'package:monis/presentation/view/categories/categories_screen.dart';
 import 'package:monis/presentation/view/home/home_screen.dart';
 import 'package:monis/presentation/view/themes/theme_switcher.dart';
+import 'package:monis/presentation/view/user/user_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return MaterialApp(
           theme: state.getThemeData(),
-          home: const BottonNavigationWidget(),
+          home: const UserScreen(),
         );
       },
     );
