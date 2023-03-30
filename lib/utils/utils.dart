@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:monis/domain/model/book.dart';
+import 'package:monis/domain/service/user_service.dart';
+import 'package:monis/main.dart';
 import 'package:monis/presentation/view/book_details/book_details_screen.dart';
-
+import 'package:monis/utils/status.dart';
 
 Color hexToColor(String code) {
   return Color(int.parse(code.substring(1, 7), radix: 16) + 0x66000000);
@@ -22,4 +24,24 @@ Image coverUrl(String coverUrl) {
 void openBookDetails(BuildContext context, Book book) {
   Navigator.push(context,
       MaterialPageRoute(builder: (context) => BookDetailsScreen(book)));
+}
+
+///login user
+///sss
+///ss
+void loginUser(
+    {required String userName,
+    required password,
+    required BuildContext context}) async {
+  var service = UserServicesFirebase();
+  var loginUser =
+      await service.loginUser(userName: userName, password: password);
+  if (loginUser == Status.success) {
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BottonNavigationWidget(),
+        ));
+  }
 }

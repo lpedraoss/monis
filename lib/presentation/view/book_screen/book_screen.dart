@@ -1,8 +1,6 @@
 /*-----------------------------------------------------------------------------*/
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:monis/presentation/bloc/pruebas_future/pruebas_future_cubit.dart';
 import 'package:monis/presentation/view/common/widget/header/header.dart';
 import 'package:monis/presentation/view/common/widget/item_books/item_books.dart';
 import 'package:monis/domain/model/book.dart';
