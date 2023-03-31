@@ -27,8 +27,7 @@ void openBookDetails(BuildContext context, Book book) {
 }
 
 ///login user
-///sss
-///ss
+
 void loginUser(
     {required String userName,
     required password,
@@ -43,5 +42,30 @@ void loginUser(
         MaterialPageRoute(
           builder: (context) => const BottonNavigationWidget(),
         ));
+    statusLogin(status: loginUser);
+    messageLogin(status: loginUser);
   }
+}
+
+///return the status of login
+Status statusLogin({Status? status}) {
+  return status ?? Status.fail;
+}
+
+///load a message of login
+Widget messageLogin({Status? status}) {
+  Widget widget;
+  status == Status.success
+      ? widget = const Center(
+          child: CircularProgressIndicator(),
+        )
+      : widget = const Center(
+          child: Text(
+            'Credenciales incorrectas',
+            style: TextStyle(
+              color: Colors.red,
+            ),
+          ),
+        );
+  return widget;
 }

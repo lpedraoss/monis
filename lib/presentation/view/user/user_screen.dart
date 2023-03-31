@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monis/presentation/view/common/widget/header/header.dart';
+import 'package:monis/utils/status.dart';
 import 'package:monis/utils/utils.dart';
 
 class UserScreen extends StatelessWidget {
@@ -22,10 +23,23 @@ class UserLoginScreen extends StatefulWidget {
 
 class _UserLoginScreenState extends State<UserLoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  Widget? messageWidget;
 
   ///access the values ​​of [textFormfield] via controller
   final _userEditingController = TextEditingController(),
       _passwordEditingController = TextEditingController();
+
+  void _resetFields() {
+    _userEditingController.clear();
+    _passwordEditingController.clear();
+  }
+
+  @override
+  void dispose() {
+    _userEditingController.dispose();
+    _passwordEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +82,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     ? 'Por favor escribe tu contraseña'
                     : null,
               ),
+              messageWidget ?? const SizedBox(),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -77,6 +92,13 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                         password: _passwordEditingController.text,
                         context: context,
                       );
+                      if (statusLogin() == Status.fail) {
+                        _resetFields();
+                      }
+
+                      setState(() {
+                        messageWidget = messageLogin();
+                      });
                     }
                   },
                   child: const Text('confirmar'),
