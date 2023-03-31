@@ -2,15 +2,33 @@ import 'package:monis/domain/model/user.dart';
 import 'package:monis/data/repository/user_repository.dart';
 import 'package:monis/utils/status.dart';
 
-abstract class UserService extends UserInterface {
+abstract class UserService {
   Future<Status> loginUser({
     required String userName,
     required String password,
   });
+
+  ///find the book for [userName]
+  Future<List<User>> getUser({required String userName});
+
+  ///conect the DB to flutter app with reference [_usersRef]
+  Future<List<User>> getAllUsers();
+
+  ///save a user
+  Future<String> saveUser({
+    required String name,
+    required String userName,
+    required String password,
+  });
+
+  ///delete a user
+  Future<void> removeUser({required String userId});
 }
 
 class UserServicesFirebase extends UserService {
-  final _repository = UserFirebaseRepository();
+  late final UserRepository _repository;
+  UserServicesFirebase(this._repository);
+
   @override
   Future<List<User>> getAllUsers() async => _repository.getAllUsers();
 

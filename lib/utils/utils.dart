@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:monis/domain/model/book.dart';
-import 'package:monis/domain/service/user_service.dart';
-import 'package:monis/main.dart';
 import 'package:monis/presentation/view/book_details/book_details_screen.dart';
 import 'package:monis/utils/status.dart';
 
@@ -28,23 +26,24 @@ void openBookDetails(BuildContext context, Book book) {
 
 ///login user
 
-void loginUser(
-    {required String userName,
-    required password,
-    required BuildContext context}) async {
-  var service = UserServicesFirebase();
-  var loginUser =
-      await service.loginUser(userName: userName, password: password);
-  if (loginUser == Status.success) {
-    // ignore: use_build_context_synchronously
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const BottonNavigationWidget(),
-        ));
-    statusLogin(status: loginUser);
-    messageLogin(status: loginUser);
-  }
+Future<void> loginUser(
+  BuildContext context, {
+  required String userName,
+  required password,
+}) async {
+  
+  // var loginUser = await service.loginUser(
+  //   userName: userName,
+  //   password: password,
+  // );
+  // if (loginUser == Status.success) {
+  //   // ignore: use_build_context_synchronously
+  //   Navigator.of(context).push(
+  //     MaterialPageRoute(
+  //       builder: (context) => const BottonNavigationWidget(),
+  //     ),
+  //   );
+  // }
 }
 
 ///return the status of login
@@ -53,19 +52,18 @@ Status statusLogin({Status? status}) {
 }
 
 ///load a message of login
-Widget messageLogin({Status? status}) {
-  Widget widget;
-  status == Status.success
-      ? widget = const Center(
-          child: CircularProgressIndicator(),
-        )
-      : widget = const Center(
-          child: Text(
-            'Credenciales incorrectas',
-            style: TextStyle(
-              color: Colors.red,
-            ),
-          ),
-        );
+Widget? messageLogin({Status? status}) {
+  Widget? widget;
+  if (status == Status.success) {
+    widget = const Center(
+      child: Text(
+        'Credenciales incorrectas',
+        style: TextStyle(
+          color: Colors.red,
+        ),
+      ),
+    );
+  }
+
   return widget;
 }

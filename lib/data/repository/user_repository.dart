@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:monis/domain/model/user.dart';
 
-///interface of [User]
-abstract class UserInterface {
-  ///find the book for [userName]
+
+
+abstract class UserRepository  {
+    ///find the book for [userName]
   Future<List<User>> getUser({required String userName});
 
   ///conect the DB to flutter app with reference [_usersRef]
@@ -21,8 +22,6 @@ abstract class UserInterface {
   ///delete a user
   Future<void> removeUser({required String userId});
 }
-
-abstract class UserRepository extends UserInterface {}
 
 ///Show [users] from firebase
 class UserFirebaseRepository extends UserRepository {

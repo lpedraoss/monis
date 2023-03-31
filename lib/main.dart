@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:monis/data/repository/user_repository.dart';
 import 'package:monis/domain/service/bookshelf_service.dart';
 import 'package:monis/domain/service/theme_service.dart';
+import 'package:monis/domain/service/user_service.dart';
+import 'package:monis/presentation/bloc/authentication/authentication_bloc.dart';
 import 'package:monis/presentation/bloc/book_shelf/book_shelf_bloc.dart';
 import 'package:monis/presentation/bloc/theme/theme_cubit.dart';
 import 'package:monis/presentation/view/bookshelf/bookshelf_screen.dart';
@@ -42,6 +45,13 @@ class MonisApp extends StatelessWidget {
                 service: BookShelfStorageService(),
               )..add(const StartShelfEvent());
             },
+          ),
+          BlocProvider(
+            create: (context) => AuthenticationBloc(
+              UserServicesFirebase(
+                UserFirebaseRepository(),
+              ),
+            ),
           ),
           BlocProvider(
             create: (context) => ThemeCubit(

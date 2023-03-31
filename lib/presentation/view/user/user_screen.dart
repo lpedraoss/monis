@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:monis/presentation/bloc/authentication/authentication_bloc.dart';
 import 'package:monis/presentation/view/common/widget/header/header.dart';
+import 'package:monis/presentation/view/common/widget/loading.dart';
 import 'package:monis/utils/status.dart';
 import 'package:monis/utils/utils.dart';
+
+final _formKey = GlobalKey<FormState>();
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
@@ -22,12 +27,22 @@ class UserLoginScreen extends StatefulWidget {
 }
 
 class _UserLoginScreenState extends State<UserLoginScreen> {
-  final _formKey = GlobalKey<FormState>();
   Widget? messageWidget;
 
+  var _showPassword = false;
+
   ///access the values ​​of [textFormfield] via controller
-  final _userEditingController = TextEditingController(),
-      _passwordEditingController = TextEditingController();
+  late final TextEditingController _userEditingController,
+      _passwordEditingController;
+
+  @override
+  void initState() {
+    _userEditingController = TextEditingController()
+      ..addListener(_userListener);
+    _passwordEditingController = TextEditingController()
+      ..addListener(_passwordListener);
+    super.initState();
+  }
 
   void _resetFields() {
     _userEditingController.clear();
@@ -39,6 +54,22 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
     _userEditingController.dispose();
     _passwordEditingController.dispose();
     super.dispose();
+  }
+
+  void _userListener() {
+    if (_userEditingController.text.isNotEmpty) {
+      setState(() {
+        messageWidget = null;
+      });
+    }
+  }
+
+  void _passwordListener() {
+    if (_passwordEditingController.text.isNotEmpty) {
+      setState(() {
+        messageWidget = null;
+      });
+    }
   }
 
   @override
@@ -53,7 +84,9 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const HeaderWidget(),
-              const Padding(padding: EdgeInsets.only(bottom: 30)),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 30),
+              ),
               const Center(
                 child: Text(
                   'Login',
@@ -64,7 +97,6 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
               ),
               TextFormField(
                 controller: _userEditingController,
-                obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Usuario',
                 ),
@@ -74,40 +106,80 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
               ),
               TextFormField(
                 controller: _passwordEditingController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Contraseña',
-                ),
+                obscureText: !_showPassword,
+                decoration: InputDecoration(
+                    labelText: 'Contraseña',
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _showPassword = !_showPassword;
+                        });
+                      },
+                      icon: Icon(
+                        _icon,
+                      ),
+                    )),
                 validator: (value) => (value == null || value.isEmpty)
                     ? 'Por favor escribe tu contraseña'
                     : null,
               ),
-              messageWidget ?? const SizedBox(),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      loginUser(
-                        userName: _userEditingController.text,
-                        password: _passwordEditingController.text,
-                        context: context,
-                      );
-                      if (statusLogin() == Status.fail) {
-                        _resetFields();
-                      }
+              BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                listener: (context, state) {
+                  // setState(() {
+                  //   messageWidget = messageLogin();
+                  // });
+                },
+                builder: (context, state) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      messageLogin(status: state.status) ?? Container(),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: _isLoading(state)
+                              ? null
+                              : () async {
+                                  if (_formKey.currentState?.validate() ??
+                                      false) {
+                                    context.read<AuthenticationBloc>().add(
+                                          LoginEvent(
+                                            password:
+                                                _passwordEditingController.text,
+                                            username:
+                                                _userEditingController.text,
+                                          ),
+                                        );
+                                    // await loginUser(
+                                    //   context,
+                                    //   userName: _userEditingController.text,
+                                    //   password: _passwordEditingController.text,
+                                    // );
 
-                      setState(() {
-                        messageWidget = messageLogin();
-                      });
-                    }
-                  },
-                  child: const Text('confirmar'),
-                ),
+                                  }
+                                },
+                          child: _isLoading(state)
+                              ? const Loading()
+                              : const Text('Confirmar'),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  bool _isLoading(AuthenticationState state) {
+    return state.status == Status.inProgress;
+  }
+
+  //obtiene el icono de contraseña a mostrar
+  IconData get _icon {
+    return _showPassword ? Icons.visibility_off : Icons.visibility;
   }
 }
