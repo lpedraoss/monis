@@ -85,14 +85,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class BottonNavigationWidget extends StatefulWidget {
-  const BottonNavigationWidget({super.key});
+class NavigationScreen extends StatefulWidget {
+  const NavigationScreen({super.key});
 
   @override
-  State<BottonNavigationWidget> createState() => _BottonNavigationWidgetState();
+  State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
-class _BottonNavigationWidgetState extends State<BottonNavigationWidget> {
+class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _sections = [
     HomeScreen(),

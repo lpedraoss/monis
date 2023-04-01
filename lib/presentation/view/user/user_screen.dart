@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:monis/main.dart';
 import 'package:monis/presentation/bloc/authentication/authentication_bloc.dart';
 import 'package:monis/presentation/view/common/widget/header/header.dart';
 import 'package:monis/presentation/view/common/widget/loading.dart';
@@ -32,32 +33,30 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
   var _showPassword = false;
 
   ///access the values ​​of [textFormfield] via controller
-  late final TextEditingController _userEditingController,
-      _passwordEditingController;
+  late final TextEditingController _userController, _passwordController;
 
   @override
   void initState() {
-    _userEditingController = TextEditingController()
-      ..addListener(_userListener);
-    _passwordEditingController = TextEditingController()
+    _userController = TextEditingController()..addListener(_userListener);
+    _passwordController = TextEditingController()
       ..addListener(_passwordListener);
     super.initState();
   }
 
   void _resetFields() {
-    _userEditingController.clear();
-    _passwordEditingController.clear();
+    _userController.clear();
+    _passwordController.clear();
   }
 
   @override
   void dispose() {
-    _userEditingController.dispose();
-    _passwordEditingController.dispose();
+    _userController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   void _userListener() {
-    if (_userEditingController.text.isNotEmpty) {
+    if (_userController.text.isNotEmpty) {
       setState(() {
         messageWidget = null;
       });
@@ -65,7 +64,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
   }
 
   void _passwordListener() {
-    if (_passwordEditingController.text.isNotEmpty) {
+    if (_passwordController.text.isNotEmpty) {
       setState(() {
         messageWidget = null;
       });
@@ -96,7 +95,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                 ),
               ),
               TextFormField(
-                controller: _userEditingController,
+                controller: _userController,
                 decoration: const InputDecoration(
                   labelText: 'Usuario',
                 ),
@@ -105,7 +104,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     : null,
               ),
               TextFormField(
-                controller: _passwordEditingController,
+                controller: _passwordController,
                 obscureText: !_showPassword,
                 decoration: InputDecoration(
                     labelText: 'Contraseña',
@@ -125,6 +124,18 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
               ),
               BlocConsumer<AuthenticationBloc, AuthenticationState>(
                 listener: (context, state) {
+                  if (state.status == Status.fail) {
+                    setState(() {
+                      messageWidget = messageLogin(status: state.status);
+                    });
+                  } else if (state.status == Status.success) {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const NavigationScreen(),
+                      ),
+                      (route) => false,
+                    );
+                  }
                   // setState(() {
                   //   messageWidget = messageLogin();
                   // });
@@ -134,30 +145,10 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      messageLogin(status: state.status) ?? Container(),
+                      messageWidget ?? Container(),
                       Center(
                         child: ElevatedButton(
-                          onPressed: _isLoading(state)
-                              ? null
-                              : () async {
-                                  if (_formKey.currentState?.validate() ??
-                                      false) {
-                                    context.read<AuthenticationBloc>().add(
-                                          LoginEvent(
-                                            password:
-                                                _passwordEditingController.text,
-                                            username:
-                                                _userEditingController.text,
-                                          ),
-                                        );
-                                    // await loginUser(
-                                    //   context,
-                                    //   userName: _userEditingController.text,
-                                    //   password: _passwordEditingController.text,
-                                    // );
-
-                                  }
-                                },
+                          onPressed: _isLoading(state) ? null : onLogin,
                           child: _isLoading(state)
                               ? const Loading()
                               : const Text('Confirmar'),
@@ -172,6 +163,23 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
         ),
       ),
     );
+  }
+
+  onLogin() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      context.read<AuthenticationBloc>().add(
+            LoginEvent(
+              password: _passwordController.text,
+              username: _userController.text,
+            ),
+          );
+      // await loginUser(
+      //   context,
+      //   userName: _userEditingController.text,
+      //   password: _passwordEditingController.text,
+      // );
+
+    }
   }
 
   bool _isLoading(AuthenticationState state) {
